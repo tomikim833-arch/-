@@ -1,112 +1,317 @@
-const defaultProducts = [
-            {
-                id: 1,
-                title: "Apple MacBook Air M1 (8GB / 256GB SSD)",
-                price: 280000,
-                category: "electronics",
-                condition: "Өте жақсы",
-                status: "Белсенді",
-                dorm: "Бас корпус (METU)",
-                img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
-                desc: "Бағдарламалау мен сабақтарға арналған өте жылдам ноутбук. Қорабы мен зарядтағышы бар."
-            },
-            {
-                id: 2,
-                title: "METU Классикалық Оверсайз Худи (L)",
-                price: 7500,
-                category: "clothes",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "№1 Жатақхана (METU)",
-                img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80",
-                desc: "Құрамы: 80% мақта, 20% полиэстер. Жылы, денеге жайлы."
-            },
-            {
-                id: 3,
-                title: "METU Брендті Қысқы Шапка (Beanie)",
-                price: 2500,
-                category: "clothes",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "Бас корпус (METU)",
-                img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&q=80",
-                desc: "Құрамы: 100% акрил. Суық күндерге арналған тоқылған шапка."
-            },
-            {
-                id: 4,
-                title: "Discrete Mathematics & Algorithms (Оқулық)",
-                price: 3500,
-                category: "books",
-                condition: "Өте жақсы",
-                status: "Белсенді",
-                dorm: "№2 Жатақхана (METU)",
-                img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
-                desc: "Дискретті математика курсына арналған ағылшын тіліндегі түпнұсқа оқулық."
-            },
-            {
-                id: 5,
-                title: "METU Logo Гельді Ручкалар Жинағы (4 дана)",
-                price: 1200,
-                category: "stationery",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "Бас корпус (METU)",
-                img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80",
-                desc: "Қара сиялы, өте жұмсақ жазатын METU логотипі басылған гельді ручкалар жинағы."
-            },
-            {
-                id: 6,
-                title: "METU Mechanical Pencil (Қарындаш 0.5mm)",
-                price: 900,
-                category: "stationery",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "№1 Жатақхана (METU)",
-                img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=500&q=80",
-                desc: "Сызба мен есеп шығаруға арналған сапалы механикалық қарындаш + қосалқы грифельдер."
-            },
-            {
-                id: 7,
-                title: "METU Campus Hardcover Дәптері (96 парақ)",
-                price: 1500,
-                category: "stationery",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "№2 Жатақхана (METU)",
-                img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&q=80",
-                desc: "Қатты мұқабалы, түзу жолақты лекция дәптері. Сыртқы бетінде METU өрнегі бар."
-            },
-            {
-                id: 8,
-                title: "METU Minimalist Блокнот (Notes & To-Do)",
-                price: 1800,
-                category: "stationery",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "Бас корпус (METU)",
-                img: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=500&q=80",
-                desc: "Күнделікті жоспарлар мен тапсырмаларды жазуға ыңғайлы стильный блокнот."
-            },
-            {
-                id: 9,
-                title: "Logitech Wireless Mouse Pebble M350",
-                price: 5900,
-                category: "electronics",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "Бас корпус (METU)",
-                img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80",
-                desc: "Ықшам, тыныш шертілетін сымсыз тінтуір."
-            },
-            {
-                id: 10,
-                title: "Сенсорлық үстел шамы (LED Desk Lamp)",
-                price: 4500,
-                category: "dorm",
-                condition: "Жаңа",
-                status: "Белсенді",
-                dorm: "№2 Жатақхана (METU)",
-                img: "https://images.unsplash.com/photo-1534349762230-e0cadf32f5d5?w=500&q=80",
-                desc: "Көзді ауыртпайтын жарық деңгейі реттелетін жатақханаға арналған шам."
+<!DOCTYPE html>
+<html lang="kk" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniMarket & METU Food Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #0f172a; --text-muted: #64748b;
+            --primary: #4f46e5; --primary-hover: #4338ca; --danger: #ef4444; --success: #10b981; 
+            --border: #e2e8f0; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --badge-bg: #e0e7ff;
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f8fafc; --text-muted: #94a3b8;
+            --primary: #6366f1; --border: #334155; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); --badge-bg: #312e81;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+        .header { background-color: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .logo small { font-size: 11px; color: var(--text-muted); display: block; }
+        .nav { display: flex; align-items: center; gap: 15px; }
+        .nav a { text-decoration: none; color: var(--text-color); font-weight: 500; font-size: 14px; }
+        .btn-primary-sm { background-color: var(--primary); color: white !important; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+        
+        /* Switcher tabs (Marketplace vs Food) */
+        .mode-switch { display: flex; gap: 10px; margin-bottom: 25px; background: var(--card-bg); padding: 6px; border-radius: 12px; border: 1px solid var(--border); width: fit-content; }
+        .mode-btn { background: transparent; border: none; padding: 10px 20px; font-weight: 600; font-size: 14px; border-radius: 8px; cursor: pointer; color: var(--text-muted); }
+        .mode-btn.active { background-color: var(--primary); color: white; }
+
+        .hero-advanced { background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 25px; box-shadow: var(--shadow); }
+        .hero-advanced h1 { font-size: 1.6rem; margin-bottom: 8px; }
+        .hero-advanced p { font-size: 14px; opacity: 0.9; }
+
+        .controls-section { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; }
+        .search-box { flex: 1; min-width: 250px; }
+        .search-box input, .filters-group select { width: 100%; padding: 12px 16px; background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text-color); font-size: 14px; }
+        .filters-group { display: flex; gap: 10px; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); }
+        .card-img-wrapper { width: 100%; height: 160px; overflow: hidden; position: relative; background: #e2e8f0; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .status-badge { position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: white; background-color: var(--success); }
+        .card-body { padding: 16px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .cat-badge { background-color: var(--badge-bg); color: var(--primary); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; display: inline-block; margin-bottom: 8px; }
+        .card h3 { font-size: 16px; margin-bottom: 6px; color: var(--text-color); }
+        .card p { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
+        .card-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); paddingTop: 10px; margin-top: 10px; }
+        .price { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .dorm-tag { font-size: 11px; color: var(--text-muted); }
+
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border); padding: 12px 20px; border-radius: 10px; box-shadow: var(--shadow); font-size: 14px; }
+        
+        .food-btn { background-color: #f59e0b; color: white !important; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; width: 100%; margin-top: 8px; }
+        .food-btn:hover { background-color: #d97706; }
+
+        .footer { margin-top: auto; background-color: var(--card-bg); border-top: 1px solid var(--border); padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Mini<span>Market</span> <small>METU Campus & Food</small></a>
+            <nav class="nav">
+                <a href="create-ad.html" class="btn-primary-sm">+ Хабарландыру</a>
+                <a href="profile.html">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Режим ауыстырғыш (Marketplace немесе Food Delivery) -->
+        <div class="mode-switch">
+            <button class="mode-btn active" id="btnMarket" onclick="switchMode('market')">🛒 Студенттік Заттар</button>
+            <button class="mode-btn" id="btnFood" onclick="switchMode('food')">🍔 METU Food & Coffee</button>
+        </div>
+
+        <!-- Marketplace Section -->
+        <div id="marketSection">
+            <section class="hero-advanced">
+                <h1>METU кампусындағы қауіпсіз студенттік сауда</h1>
+                <p>Худи, оқулықтар, гаджеттер мен канцеляриялық тауарларды тек расталған студенттерден алыңыз.</p>
+            </section>
+
+            <section class="controls-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Тауар атауы бойынша іздеу...">
+                </div>
+                <div class="filters-group">
+                    <select id="categoryFilter">
+                        <option value="all">Барлық категориялар</option>
+                        <option value="clothes">👕 Киімдер & Худилер</option>
+                        <option value="books">📚 Оқулықтар</option>
+                        <option value="stationery">✏️ Канцелярия (Ручка, қарындаш, дәптер)</option>
+                        <option value="electronics">💻 Электроника</option>
+                        <option value="dorm">🛏️ Жатақхана заттары</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="product-grid" id="productGrid"></section>
+        </div>
+
+        <!-- Food Delivery Section -->
+        <div id="foodSection" style="display: none;">
+            <section class="hero-advanced" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                <h1>☕ METU Food & Coffee Delivery</h1>
+                <p>Жатақхана бөлмесінен шықпай-ап кампус асханасы мен кофеханасынан тапсырыс беріңіз!</p>
+            </section>
+
+            <section class="product-grid" id="foodGrid">
+                <!-- Food Item 1 -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <span class="status-badge" style="background:#f59e0b;">☕ Кофехана</span>
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&q=80" class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="cat-badge">Сусындар</span>
+                            <h3>METU Special Latte (Үлкен)</h3>
+                            <p>Жаңа піскен сүт пен табиғи колумбиялық кофе дәндері.</p>
+                        </div>
+                        <div>
+                            <span class="dorm-tag">📍 Жеткізу: Барлық жатақханаларға</span>
+                            <div class="card-bottom">
+                                <div class="price">900 ₸</div>
+                                <button class="food-btn" onclick="orderFood('METU Special Latte', 900)">Тапсырыс беру</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 2 -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <span class="status-badge" style="background:#f59e0b;">🍔 Фастфуд</span>
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&q=80" class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="cat-badge">Фастфуд</span>
+                            <h3>Клубный Сэндвич + Картофель фри</h3>
+                            <p>Тауық еті, қызанақ, ірімшік және соус қосылған ыстық сэндвич.</p>
+                        </div>
+                        <div>
+                            <span class="dorm-tag">📍 Жеткізу: Бас корпус & Жатақхана</span>
+                            <div class="card-bottom">
+                                <div class="price">1500 ₸</div>
+                                <button class="food-btn" onclick="orderFood('Клубный Сэндвич', 1500)">Тапсырыс беру</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 3 -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <span class="status-badge" style="background:#f59e0b;">🍲 Асхана</span>
+                        <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500&q=80" class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="cat-badge">Ыстық тамақ</span>
+                            <h3>Манты (6 дана, қаймақпен)</h3>
+                            <p>METU кампус асханасының қолдан жасалған етті мантысы.</p>
+                        </div>
+                        <div>
+                            <span class="dorm-tag">📍 Жеткізу: №1, №2 Жатақхана</span>
+                            <div class="card-bottom">
+                                <div class="price">1200 ₸</div>
+                                <button class="food-btn" onclick="orderFood('Манты (6 дана)', 1200)">Тапсырыс беру</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 4 -->
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <span class="status-badge" style="background:#f59e0b;">🥐 Десерт</span>
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&q=80" class="card-img">
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="cat-badge">Десерт</span>
+                            <h3>Шоколадты Круассан</h3>
+                            <p>Қытырлақ қамыр және іші толы қою шоколад крем.</p>
+                        </div>
+                        <div>
+                            <span class="dorm-tag">📍 Жеткізу: Барлық кампус</span>
+                            <div class="card-bottom">
+                                <div class="price">650 ₸</div>
+                                <button class="food-btn" onclick="orderFood('Шоколадты Круассан', 650)">Тапсырыс беру</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 MiniMarket & METU Food Delivery. Барлық құқықтар қорғалған.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Режимдерді ауыстыру функциясы
+        function switchMode(mode) {
+            const marketSec = document.getElementById('marketSection');
+            const foodSec = document.getElementById('foodSection');
+            const btnMarket = document.getElementById('btnMarket');
+            const btnFood = document.getElementById('btnFood');
+
+            if(mode === 'market') {
+                marketSec.style.display = 'block';
+                foodSec.style.display = 'none';
+                btnMarket.classList.add('active');
+                btnFood.classList.remove('active');
+            } else {
+                marketSec.style.display = 'none';
+                foodSec.style.display = 'block';
+                btnFood.classList.add('active');
+                btnMarket.classList.remove('active');
             }
+        }
+
+        // Тамаққа тапсырыс беру функциясы (WhatsApp арқылы курьерге жіберу)
+        function orderFood(itemTitle, price) {
+            const dormRoom = prompt("Жатақханаңыз бен бөлме нөмірін жазыңыз (Мысалы: №1 жатақхана, 405-бөлме):", "№1 жатақхана, ");
+            if(!dormRoom) return;
+            
+            const msg = encodeURIComponent(`🍔 Жеткізуге тапсырыс!\nТағам: ${itemTitle} (${price} ₸)\nМекенжайы: ${dormRoom}\nРәсімдеуді растаймын!`);
+            window.open(`https://wa.me/77071234567?text=${msg}`, '_blank');
+        }
+
+        // Toast хабарлама
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            if(!container) return;
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            container.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        // Marketplace өнімдерін жүктеу
+        const defaultProducts = [
+            { id: 1, title: "Apple MacBook Air M1 (8GB / 256GB SSD)", price: 280000, category: "electronics", condition: "Өте жақсы", status: "Белсенді", dorm: "Бас корпус (METU)", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80", desc: "Бағдарламалау мен сабақтарға арналған өте жылдам ноутбук." },
+            { id: 2, title: "METU Классикалық Оверсайз Худи (L)", price: 7500, category: "clothes", condition: "Жаңа", status: "Белсенді", dorm: "№1 Жатақхана (METU)", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80", desc: "Құрамы: 80% мақта, 20% полиэстер." },
+            { id: 3, title: "METU Logo Гельді Ручкалар Жинағы", price: 1200, category: "stationery", condition: "Жаңа", status: "Белсенді", dorm: "Бас корпус (METU)", img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80", desc: "Қара сиялы, сапалы ручкалар жинағы." },
+            { id: 4, title: "METU Campus Hardcover Дәптері", price: 1500, category: "stationery", condition: "Жаңа", status: "Белсенді", dorm: "№2 Жатақхана (METU)", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&q=80", desc: "Қатты мұқабалы лекция дәптері." }
         ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('productGrid');
+            const searchInput = document.getElementById('searchInput');
+            const catFilter = document.getElementById('categoryFilter');
+
+            function render(items) {
+                if(!grid) return;
+                grid.innerHTML = items.length ? items.map(p => `
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <span class="status-badge">${p.status}</span>
+                            <img src="${p.img}" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <span class="cat-badge">${p.category}</span>
+                                <h3>${p.title}</h3>
+                                <p>${p.desc}</p>
+                            </div>
+                            <div>
+                                <span class="dorm-tag">📍 ${p.dorm}</span>
+                                <div class="card-bottom">
+                                    <div class="price">${p.price.toLocaleString()} ₸</div>
+                                    <a href="https://wa.me/77071234567?text=Сәлеметсіз бе! ${p.title} тауарын алғым келеді." target="_blank" class="btn-primary-sm">Сатып алу</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') : '<p style="text-align:center; grid-column:1/-1; color:var(--text-muted);">Ештеңе табылмады 🔍</p>';
+            }
+
+            render(defaultProducts);
+
+            if(searchInput) {
+                searchInput.addEventListener('input', () => {
+                    let q = searchInput.value.toLowerCase();
+                    let items = defaultProducts.filter(i => i.title.toLowerCase().includes(q));
+                    render(items);
+                });
+            }
+
+            if(catFilter) {
+                catFilter.addEventListener('change', () => {
+                    let val = catFilter.value;
+                    let items = val === 'all' ? defaultProducts : defaultProducts.filter(i => i.category === val);
+                    render(items);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
