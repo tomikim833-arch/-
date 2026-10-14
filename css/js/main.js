@@ -1,4 +1,9 @@
-// METU MiniMarket тауарлар каталогы
+// Автоматический сброс старой памяти при обновлении кода
+if (!localStorage.getItem('minimarket_v4_reset')) {
+    localStorage.clear();
+    localStorage.setItem('minimarket_v4_reset', 'true');
+}
+
 const defaultProducts = [
     {
         id: 1,
@@ -95,39 +100,26 @@ const defaultProducts = [
         img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
         desc: "Акустикасы тамаша, заряды 2 күнге жетеді. Қорабы мен чегы бар.",
         createdAt: Date.now() - 700000
-    },
-    {
-        id: 9,
-        title: "Ноутбукке арналған ыңғайлы рюкзак",
-        price: 7000,
-        category: "dorm",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "Бас корпус (METU)",
-        img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-        desc: "Су өткізбейтін материалдан жасалған, 15.6 дюймдік ноутбукке арналған бөлімі бар.",
-        createdAt: Date.now() - 800000
     }
 ];
 
 function getProducts() {
-    const data = localStorage.getItem('minimarket_ads_v3');
+    const data = localStorage.getItem('minimarket_ads_v4');
     if (!data) {
-        localStorage.setItem('minimarket_ads_v3', JSON.stringify(defaultProducts));
+        localStorage.setItem('minimarket_ads_v4', JSON.stringify(defaultProducts));
         return defaultProducts;
     }
     return JSON.parse(data);
 }
 
 function saveProducts(products) {
-    localStorage.setItem('minimarket_ads_v3', JSON.stringify(products));
+    localStorage.setItem('minimarket_ads_v4', JSON.stringify(products));
 }
 
 function getFavorites() {
     return JSON.parse(localStorage.getItem('minimarket_favs')) || [];
 }
 
-// Toast Notification
 function showToast(message) {
     const container = document.getElementById('toastContainer');
     if(!container) return;
@@ -135,13 +127,10 @@ function showToast(message) {
     toast.className = 'toast';
     toast.textContent = message;
     container.appendChild(toast);
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
+    setTimeout(() => { toast.remove(); }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Тема
     const themeToggle = document.getElementById('themeToggle');
     const currentTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -157,14 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Мобильді мәзір
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     if(menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => navMenu.classList.toggle('show'));
     }
 
-    // 3. Басты бет карточкаларын шығару
     const productGrid = document.getElementById('productGrid');
     const searchInput = document.getElementById('searchInput');
     const categoryFilter = document.getElementById('categoryFilter');
@@ -220,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <div class="card-img-wrapper">
                     <span class="status-badge ${statusClass}">${p.status || 'Белсенді'}</span>
-                    <img src="${p.img || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80'}" class="card-img" alt="${p.title}">
+                    <img src="${p.img}" class="card-img" alt="${p.title}">
                 </div>
                 <div class="card-body">
                     <div>
@@ -305,14 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if(sortFilter) sortFilter.addEventListener('change', filterAndSort);
     }
 
-    // Modal & WhatsApp
     const modal = document.getElementById('productModal');
     const closeModal = document.getElementById('closeModal');
     const modalBody = document.getElementById('modalBody');
 
     function openModal(p) {
         if(!modal) return;
-        const waText = encodeURIComponent(`Сәлеметсіз бе! MiniMarket арқылы «${p.title}» (${p.price.toLocaleString()} ₸) тауарын көрген едім. Әлі сатылымда ма?`);
+        const waText = encodeURIComponent(`Сәлеметсіз бе! MiniMarket арқылы «${p.title}» (${p.price.toLocaleString()} ₸) тауарын көрген едім.`);
         modalBody.innerHTML = `
             <img src="${p.img}" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:12px;">
             <h2>${p.title}</h2>
@@ -322,212 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <p style="margin: 10px 0; color:var(--text-muted); font-size:14px;">${p.desc}</p>
             
             <a href="https://wa.me/77071234567?text=${waText}" target="_blank" class="whatsapp-btn">💬 WhatsApp арқылы жазу</a>
-
-            <hr style="margin:15px 0; border:0; border-top:1px solid var(--border);">
-            <h3>💬 Чат терезесі</h3>
-            <div class="chat-container">
-                <div class="chat-messages" id="chatMsgs">
-                    <div class="chat-msg received">Сәлеметсіз бе! Тауар сатылымда ма?</div>
-                </div>
-                <div class="chat-input-row">
-                    <input type="text" id="chatInput" placeholder="Хабарлама жазыңыз...">
-                    <button class="btn-primary-sm" id="sendMsgBtn">Жіберу</button>
-                </div>
-            </div>
         `;
         modal.style.display = 'flex';
-
-        const sendMsgBtn = document.getElementById('sendMsgBtn');
-        const chatInput = document.getElementById('chatInput');
-        const chatMsgs = document.getElementById('chatMsgs');
-
-        if(sendMsgBtn) {
-            sendMsgBtn.addEventListener('click', () => {
-                if(chatInput.value.trim()) {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'chat-msg sent';
-                    msgDiv.textContent = chatInput.value;
-                    chatMsgs.appendChild(msgDiv);
-                    chatInput.value = '';
-                    chatMsgs.scrollTop = chatMsgs.scrollHeight;
-
-                    setTimeout(() => {
-                        const replyDiv = document.createElement('div');
-                        replyDiv.className = 'chat-msg received';
-                        replyDiv.textContent = 'Иә, сатылымда! Жатақхана маңынан келіп алсаңыз болады.';
-                        chatMsgs.appendChild(replyDiv);
-                        chatMsgs.scrollTop = chatMsgs.scrollHeight;
-                    }, 1000);
-                }
-            });
-        }
     }
 
     if(closeModal) closeModal.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
-
-    // 4. Форма & FileReader
-    const adForm = document.getElementById('adForm');
-    if(adForm) {
-        adForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isValid = true;
-            
-            const title = document.getElementById('title');
-            const price = document.getElementById('price');
-            const category = document.getElementById('category');
-            const condition = document.getElementById('condition');
-            const desc = document.getElementById('description');
-            const dorm = document.getElementById('dormLocation');
-            const imageFile = document.getElementById('imageFile');
-
-            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
-
-            if(!title.value.trim()) { document.getElementById('titleError').textContent = 'Атауын жазыңыз!'; isValid = false; }
-            if(!price.value || price.value <= 0) { document.getElementById('priceError').textContent = 'Бағаны көрсетіңіз!'; isValid = false; }
-            if(!category.value) { document.getElementById('categoryError').textContent = 'Категория таңдаңыз!'; isValid = false; }
-            if(!desc.value.trim()) { document.getElementById('descError').textContent = 'Сипаттама жазыңыз!'; isValid = false; }
-
-            if(isValid) {
-                let defaultImg = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80";
-                if(category.value === 'clothes') defaultImg = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80";
-                if(category.value === 'stationery') defaultImg = "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80";
-
-                const processAd = (imgResult) => {
-                    const newAd = {
-                        id: Date.now(),
-                        title: title.value,
-                        price: Number(price.value),
-                        category: category.value,
-                        condition: condition ? condition.value : 'Өте жақсы',
-                        status: 'Белсенді',
-                        dorm: dorm.value,
-                        img: imgResult || defaultImg,
-                        desc: desc.value,
-                        createdAt: Date.now()
-                    };
-
-                    const products = getProducts();
-                    products.unshift(newAd);
-                    saveProducts(products);
-
-                    showToast('🚀 Хабарландыру жарияланды!');
-                    setTimeout(() => {
-                        window.location.href = 'profile.html';
-                    }, 1000);
-                };
-
-                if(imageFile && imageFile.files && imageFile.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(uploadEvent) {
-                        processAd(uploadEvent.target.result);
-                    };
-                    reader.readAsDataURL(imageFile.files[0]);
-                } else {
-                    processAd(defaultImg);
-                }
-            }
-        });
-    }
-
-    // 5. Профиль
-    const myAdsGrid = document.getElementById('myAdsGrid');
-    const favoritesGrid = document.getElementById('favoritesGrid');
-    const myAdsCount = document.getElementById('myAdsCount');
-    const totalEarned = document.getElementById('totalEarned');
-    const favsCountDisplay = document.getElementById('favsCountDisplay');
-
-    function renderProfileAds() {
-        if(!myAdsGrid) return;
-        const products = getProducts();
-        
-        if(myAdsCount) myAdsCount.textContent = products.length;
-
-        const earnedSum = products
-            .filter(p => p.status === 'Сатылды')
-            .reduce((sum, p) => sum + p.price, 0);
-        if(totalEarned) totalEarned.textContent = `${earnedSum.toLocaleString()} ₸`;
-
-        if(products.length === 0) {
-            myAdsGrid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1;">Белсенді хабарландыру жоқ.</p>';
-        } else {
-            myAdsGrid.innerHTML = products.map(p => `
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img src="${p.img}" class="card-img">
-                    </div>
-                    <div class="card-body">
-                        <h3>${p.title}</h3>
-                        <p class="price">${p.price.toLocaleString()} ₸</p>
-                        <p style="font-size:12px; color:var(--text-muted);">Мәртебесі: <strong>${p.status || 'Белсенді'}</strong></p>
-                        <div class="action-buttons">
-                            <button class="btn-status" data-id="${p.id}">🔄 Мәртебе</button>
-                            <button class="btn-delete" data-id="${p.id}">🗑️ Өшіру</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.querySelectorAll('.btn-status').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = Number(btn.getAttribute('data-id'));
-                let products = getProducts();
-                const prod = products.find(p => p.id === id);
-                if(prod) {
-                    if(prod.status === 'Белсенді') prod.status = 'Броньда';
-                    else if(prod.status === 'Броньда') prod.status = 'Сатылды';
-                    else prod.status = 'Белсенді';
-                    
-                    saveProducts(products);
-                    renderProfileAds();
-                    showToast(`Мәртебе өзгерді: ${prod.status}`);
-                }
-            });
-        });
-
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = Number(btn.getAttribute('data-id'));
-                if(confirm('Өшіргіңіз келетініне сенімдісіз бе?')) {
-                    let products = getProducts();
-                    products = products.filter(p => p.id !== id);
-                    saveProducts(products);
-                    renderProfileAds();
-                    showToast('Өшірілді');
-                }
-            });
-        });
-
-        const favIds = getFavorites();
-        if(favsCountDisplay) favsCountDisplay.textContent = favIds.length;
-        const favProducts = products.filter(p => favIds.includes(p.id));
-
-        if(favoritesGrid) {
-            favoritesGrid.innerHTML = favProducts.length ? favProducts.map(p => `
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img src="${p.img}" class="card-img">
-                    </div>
-                    <div class="card-body">
-                        <h3>${p.title}</h3>
-                        <p class="price">${p.price.toLocaleString()} ₸</p>
-                    </div>
-                </div>
-            `).join('') : '<p style="color:var(--text-muted); grid-column:1/-1;">Таңдаулылар бос.</p>';
-        }
-    }
-
-    if(myAdsGrid) {
-        renderProfileAds();
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(btn.getAttribute('data-tab') + 'Pane').classList.add('active');
-            });
-        });
-    }
 });
