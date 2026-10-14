@@ -1,44 +1,65 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kk" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Жеке профиль - MiniMarket</title>
+    <title>Жеке кабинет — MiniMarket</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">Mini<span>Market</span></a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
-            <nav class="nav" id="navMenu">
+            <nav class="nav">
                 <a href="index.html">Басты бет</a>
-                <a href="create-ad.html">Хабарландыру қосу</a>
-                <a href="profile.html" class="active">Профиль</a>
+                <a href="create-ad.html">+ Хабарландыру</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <section class="profile-card">
-            <div class="profile-avatar">👨‍🎓</div>
-            <div class="profile-info">
-                <h2>Айдос Нұрланов</h2>
-                <p>Университет: <strong>ҚазҰУ / МУИТ</strong> (Верификацияланған)</p>
-                <p>Email: <strong>student@univ.kz</strong></p>
-                <span class="badge">Студенттік ID расталған</span>
+        <!-- Profile Header Card -->
+        <section class="profile-dashboard">
+            <div class="profile-user-info">
+                <div class="avatar-large">👨‍🎓</div>
+                <div>
+                    <h2>Айдос Нұрланов</h2>
+                    <p class="text-muted">Информатика мамандығы, 3-курс • ҚазҰУ</p>
+                    <span class="verified-badge">✓ Университет поштасы расталған (@stud.kz)</span>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-box">
+                    <span id="myAdsCount">0</span>
+                    <p>Хабарландырулар</p>
+                </div>
+                <div class="stat-box">
+                    <span id="favsCountDisplay">0</span>
+                    <p>Таңдаулылар</p>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h3>Менің хабарландыруларым</h3>
-            <div class="product-grid" id="myProducts"></div>
+        <!-- Tabs for My Ads & Favorites -->
+        <section class="profile-content-section">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="myAds">Менің хабарландыруларым</button>
+                <button class="tab-btn" data-tab="favorites">Сақталғандар (Избранное)</button>
+            </div>
+            
+            <div class="tab-pane active" id="myAdsPane">
+                <div class="product-grid" id="myAdsGrid"></div>
+            </div>
+            <div class="tab-pane" id="favoritesPane">
+                <div class="product-grid" id="favoritesGrid"></div>
+            </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 MiniMarket. Кампус ішіндегі қауіпсіз сауда.</p>
+            <p>&copy; 2026 MiniMarket. Қауіпсіз кампус ортасы.</p>
         </div>
     </footer>
 
