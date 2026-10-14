@@ -1,7 +1,20 @@
+// METU MiniMarket тауарлар каталогы
 const defaultProducts = [
     {
         id: 1,
-        title: "METU Классикалық Оверсайз Худи",
+        title: "Apple MacBook Air M1 (8GB / 256GB SSD)",
+        price: 280000,
+        category: "electronics",
+        condition: "Өте жақсы",
+        status: "Белсенді",
+        dorm: "Бас корпус (METU)",
+        img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
+        desc: "Бағдарламалау мен сабақтарға арналған өте жылдам ноутбук. Батареясы күні бойы ұстайды, қорабы мен зарядтағышы бар.",
+        createdAt: Date.now()
+    },
+    {
+        id: 2,
+        title: "METU Классикалық Оверсайз Худи (L)",
         price: 7500,
         category: "clothes",
         condition: "Жаңа",
@@ -12,7 +25,7 @@ const defaultProducts = [
         createdAt: Date.now() - 100000
     },
     {
-        id: 2,
+        id: 3,
         title: "METU Университеттік Толстовка (Свитшот)",
         price: 6500,
         category: "clothes",
@@ -24,7 +37,7 @@ const defaultProducts = [
         createdAt: Date.now() - 200000
     },
     {
-        id: 3,
+        id: 4,
         title: "METU Брендті Қысқы Шапка (Beanie)",
         price: 2500,
         category: "clothes",
@@ -36,7 +49,7 @@ const defaultProducts = [
         createdAt: Date.now() - 300000
     },
     {
-        id: 4,
+        id: 5,
         title: "METU Жазғы Кепка (Baseball Cap)",
         price: 2000,
         category: "clothes",
@@ -48,7 +61,7 @@ const defaultProducts = [
         createdAt: Date.now() - 400000
     },
     {
-        id: 5,
+        id: 6,
         title: "Parker гелевый ручкалар жинағы",
         price: 1500,
         category: "stationery",
@@ -60,7 +73,7 @@ const defaultProducts = [
         createdAt: Date.now() - 500000
     },
     {
-        id: 6,
+        id: 7,
         title: "Discrete Mathematics & Algorithms (Оқулық)",
         price: 3500,
         category: "books",
@@ -72,7 +85,7 @@ const defaultProducts = [
         createdAt: Date.now() - 600000
     },
     {
-        id: 7,
+        id: 8,
         title: "Xiaomi Redmi Dots Беспроводные Наушники",
         price: 4800,
         category: "electronics",
@@ -84,12 +97,12 @@ const defaultProducts = [
         createdAt: Date.now() - 700000
     },
     {
-        id: 8,
+        id: 9,
         title: "Ноутбукке арналған ыңғайлы рюкзак",
         price: 7000,
         category: "dorm",
         condition: "Жаңа",
-        status: "Сатылды",
+        status: "Белсенді",
         dorm: "Бас корпус (METU)",
         img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
         desc: "Су өткізбейтін материалдан жасалған, 15.6 дюймдік ноутбукке арналған бөлімі бар.",
@@ -98,16 +111,16 @@ const defaultProducts = [
 ];
 
 function getProducts() {
-    const data = localStorage.getItem('minimarket_ads');
+    const data = localStorage.getItem('minimarket_ads_v3');
     if (!data) {
-        localStorage.setItem('minimarket_ads', JSON.stringify(defaultProducts));
+        localStorage.setItem('minimarket_ads_v3', JSON.stringify(defaultProducts));
         return defaultProducts;
     }
     return JSON.parse(data);
 }
 
 function saveProducts(products) {
-    localStorage.setItem('minimarket_ads', JSON.stringify(products));
+    localStorage.setItem('minimarket_ads_v3', JSON.stringify(products));
 }
 
 function getFavorites() {
@@ -151,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.addEventListener('click', () => navMenu.classList.toggle('show'));
     }
 
-    // 3. Басты бет
+    // 3. Басты бет карточкаларын шығару
     const productGrid = document.getElementById('productGrid');
     const searchInput = document.getElementById('searchInput');
     const categoryFilter = document.getElementById('categoryFilter');
@@ -176,10 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(catAll) {
             catAll.textContent = `Барлық категориялар (${products.length})`;
-            catClothes.textContent = `👕 Киімдер & Худилер (${products.filter(p => p.category === 'clothes').length})`;
-            catBooks.textContent = `📚 Оқулықтар & Конспектілер (${products.filter(p => p.category === 'books').length})`;
-            catStat.textContent = `✏️ Канцелярия (${products.filter(p => p.category === 'stationery').length})`;
-            catElect.textContent = `💻 Электроника (${products.filter(p => p.category === 'electronics').length})`;
+            if(catClothes) catClothes.textContent = `👕 Киімдер & Худилер (${products.filter(p => p.category === 'clothes').length})`;
+            if(catBooks) catBooks.textContent = `📚 Оқулықтар & Конспектілер (${products.filter(p => p.category === 'books').length})`;
+            if(catStat) catStat.textContent = `✏️ Канцелярия (${products.filter(p => p.category === 'stationery').length})`;
+            if(catElect) catElect.textContent = `💻 Электроника (${products.filter(p => p.category === 'electronics').length})`;
             if(catDorm) catDorm.textContent = `🛏️ Жатақхана заттары (${products.filter(p => p.category === 'dorm').length})`;
         }
     }
@@ -221,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div>
                         <span class="dorm-tag">📍 ${p.dorm || 'METU Кампус'}</span>
                         <div class="card-bottom">
-                            <div class="price">${p.price} ₸</div>
+                            <div class="price">${p.price.toLocaleString()} ₸</div>
                             <button class="btn-primary-sm view-btn" data-id="${p.id}">Толығырақ</button>
                         </div>
                     </div>
@@ -262,10 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function filterAndSort() {
             let filtered = getProducts();
-            const query = searchInput.value.toLowerCase();
-            const cat = categoryFilter.value;
+            const query = searchInput ? searchInput.value.toLowerCase() : '';
+            const cat = categoryFilter ? categoryFilter.value : 'all';
             const cond = conditionFilter ? conditionFilter.value : 'all';
-            const sort = sortFilter.value;
+            const sort = sortFilter ? sortFilter.value : 'default';
 
             if(query) {
                 filtered = filtered.filter(p => p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
@@ -292,18 +305,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if(sortFilter) sortFilter.addEventListener('change', filterAndSort);
     }
 
-    // Modal & Chat & WhatsApp
+    // Modal & WhatsApp
     const modal = document.getElementById('productModal');
     const closeModal = document.getElementById('closeModal');
     const modalBody = document.getElementById('modalBody');
 
     function openModal(p) {
         if(!modal) return;
-        const waText = encodeURIComponent(`Сәлеметсіз бе! MiniMarket арқылы «${p.title}» (${p.price} ₸) тауарын көрген едім. Әлі сатылымда ма?`);
+        const waText = encodeURIComponent(`Сәлеметсіз бе! MiniMarket арқылы «${p.title}» (${p.price.toLocaleString()} ₸) тауарын көрген едім. Әлі сатылымда ма?`);
         modalBody.innerHTML = `
             <img src="${p.img}" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:12px;">
             <h2>${p.title}</h2>
-            <p style="color:var(--primary); font-size:20px; font-weight:700; margin:6px 0;">${p.price} ₸</p>
+            <p style="color:var(--primary); font-size:20px; font-weight:700; margin:6px 0;">${p.price.toLocaleString()} ₸</p>
             <p><strong>Күйі:</strong> ${p.condition || 'Өте жақсы'} | <strong>Мәртебесі:</strong> ${p.status || 'Белсенді'}</p>
             <p><strong>Мекенжайы:</strong> ${p.dorm}</p>
             <p style="margin: 10px 0; color:var(--text-muted); font-size:14px;">${p.desc}</p>
@@ -311,10 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="https://wa.me/77071234567?text=${waText}" target="_blank" class="whatsapp-btn">💬 WhatsApp арқылы жазу</a>
 
             <hr style="margin:15px 0; border:0; border-top:1px solid var(--border);">
-            <h3>💬 Сайттағы чат</h3>
+            <h3>💬 Чат терезесі</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chatMsgs">
-                    <div class="chat-msg received">Сәлеметсіз бе! Тауар жайлы сұрағым келіп еді.</div>
+                    <div class="chat-msg received">Сәлеметсіз бе! Тауар сатылымда ма?</div>
                 </div>
                 <div class="chat-input-row">
                     <input type="text" id="chatInput" placeholder="Хабарлама жазыңыз...">
@@ -341,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         const replyDiv = document.createElement('div');
                         replyDiv.className = 'chat-msg received';
-                        replyDiv.textContent = 'Иә, бәрі дұрыс! Жатақхана маңында кездесе аламыз.';
+                        replyDiv.textContent = 'Иә, сатылымда! Жатақхана маңынан келіп алсаңыз болады.';
                         chatMsgs.appendChild(replyDiv);
                         chatMsgs.scrollTop = chatMsgs.scrollHeight;
                     }, 1000);
@@ -353,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeModal) closeModal.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
 
-    // 4. Форма & FileReader (Файлдан сурет жүктеу)
+    // 4. Форма & FileReader
     const adForm = document.getElementById('adForm');
     if(adForm) {
         adForm.addEventListener('submit', (e) => {
@@ -371,9 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
 
             if(!title.value.trim()) { document.getElementById('titleError').textContent = 'Атауын жазыңыз!'; isValid = false; }
-            if(!price.value || price.value <= 0) { document.getElementById('priceError').textContent = 'Бағаны дұрыс көрсетіңіз!'; isValid = false; }
+            if(!price.value || price.value <= 0) { document.getElementById('priceError').textContent = 'Бағаны көрсетіңіз!'; isValid = false; }
             if(!category.value) { document.getElementById('categoryError').textContent = 'Категория таңдаңыз!'; isValid = false; }
-            if(!desc.value.trim()) { document.getElementById('descError').textContent = 'Сипаттама мен құрамын жазыңыз!'; isValid = false; }
+            if(!desc.value.trim()) { document.getElementById('descError').textContent = 'Сипаттама жазыңыз!'; isValid = false; }
 
             if(isValid) {
                 let defaultImg = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80";
@@ -398,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     products.unshift(newAd);
                     saveProducts(products);
 
-                    showToast('🚀 Хабарландыру сәтті жарияланды!');
+                    showToast('🚀 Хабарландыру жарияланды!');
                     setTimeout(() => {
                         window.location.href = 'profile.html';
                     }, 1000);
@@ -417,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Профиль, Аналитика & Сатылым сомасын есептеу
+    // 5. Профиль
     const myAdsGrid = document.getElementById('myAdsGrid');
     const favoritesGrid = document.getElementById('favoritesGrid');
     const myAdsCount = document.getElementById('myAdsCount');
@@ -430,7 +443,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if(myAdsCount) myAdsCount.textContent = products.length;
 
-        // Сатылған тауарлардың жалпы сомасын есептеу
         const earnedSum = products
             .filter(p => p.status === 'Сатылды')
             .reduce((sum, p) => sum + p.price, 0);
@@ -446,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-body">
                         <h3>${p.title}</h3>
-                        <p class="price">${p.price} ₸</p>
+                        <p class="price">${p.price.toLocaleString()} ₸</p>
                         <p style="font-size:12px; color:var(--text-muted);">Мәртебесі: <strong>${p.status || 'Белсенді'}</strong></p>
                         <div class="action-buttons">
                             <button class="btn-status" data-id="${p.id}">🔄 Мәртебе</button>
@@ -477,12 +489,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = Number(btn.getAttribute('data-id'));
-                if(confirm('Хабарландыруды өшіргіңіз келетініне сенімдісіз бе?')) {
+                if(confirm('Өшіргіңіз келетініне сенімдісіз бе?')) {
                     let products = getProducts();
                     products = products.filter(p => p.id !== id);
                     saveProducts(products);
                     renderProfileAds();
-                    showToast('Хабарландыру өшірілді');
+                    showToast('Өшірілді');
                 }
             });
         });
@@ -499,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-body">
                         <h3>${p.title}</h3>
-                        <p class="price">${p.price} ₸</p>
+                        <p class="price">${p.price.toLocaleString()} ₸</p>
                     </div>
                 </div>
             `).join('') : '<p style="color:var(--text-muted); grid-column:1/-1;">Таңдаулылар бос.</p>';
