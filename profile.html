@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жеке профиль - MiniMarket</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Mini<span>Market</span></a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
+            <nav class="nav" id="navMenu">
+                <a href="index.html">Басты бет</a>
+                <a href="create-ad.html">Хабарландыру қосу</a>
+                <a href="profile.html" class="active">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-card">
+            <div class="profile-avatar">👨‍🎓</div>
+            <div class="profile-info">
+                <h2>Айдос Нұрланов</h2>
+                <p>Университет: <strong>ҚазҰУ / МУИТ</strong> (Верификацияланған)</p>
+                <p>Email: <strong>student@univ.kz</strong></p>
+                <span class="badge">Студенттік ID расталған</span>
+            </div>
+        </section>
+
+        <section>
+            <h3>Менің хабарландыруларым</h3>
+            <div class="product-grid" id="myProducts"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 MiniMarket. Кампус ішіндегі қауіпсіз сауда.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
