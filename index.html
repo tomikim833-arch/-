@@ -1,90 +1,89 @@
-const defaultProducts = [
-    {
-        id: 1,
-        title: "METU Классикалық Оверсайз Худи",
-        price: 7500,
-        category: "clothes",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "№1 Жатақхана (METU)",
-        img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80",
-        desc: "Құрамы: 80% мақта, 20% полиэстер. Жылы, денеге жайлы, METU логотипі сапалы басылған."
-    },
-    {
-        id: 2,
-        title: "METU Университеттік Толстовка (Свитшот)",
-        price: 6500,
-        category: "clothes",
-        condition: "Өте жақсы",
-        status: "Белсенді",
-        dorm: "№2 Жатақхана (METU)",
-        img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&q=80",
-        desc: "Құрамы: 70% мақта, 30% полиэстер. Күз бен көктем мезгіліне арналған жұмсақ толстовка."
-    },
-    {
-        id: 3,
-        title: "METU Бренды бар Қысқы Шапка (Beanie)",
-        price: 2500,
-        category: "clothes",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "Бас корпус (METU)",
-        img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&q=80",
-        desc: "Құрамы: 100% акрил (жылы әрі тістемейді). Суық күндерге арналған тоқылған шапка."
-    },
-    {
-        id: 4,
-        title: "METU Жазғы Кепка (Baseball Cap)",
-        price: 2000,
-        category: "clothes",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "№1 Жатақхана (METU)",
-        img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80",
-        desc: "Құрамы: 100% мақта (cotton). Күннен қорғайтын сапалы баспалы кепка, арты реттеледі."
-    },
-    {
-        id: 5,
-        title: "Parker гелевый ручкалар жинағы",
-        price: 1500,
-        category: "stationery",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "Бас корпус (METU)",
-        img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80",
-        desc: "Конспект пен емтихан жазуға өте ыңғайлы премиум металлик ручкалар."
-    },
-    {
-        id: 6,
-        title: "Discrete Mathematics & Algorithms (Оқулық)",
-        price: 3500,
-        category: "books",
-        condition: "Өте жақсы",
-        status: "Белсенді",
-        dorm: "№2 Жатақхана (METU)",
-        img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
-        desc: "Дискретті математика курсына арналған ағылшын тіліндегі түпнұсқа оқулық."
-    },
-    {
-        id: 7,
-        title: "Xiaomi Redmi Dots Беспроводные Наушники",
-        price: 4800,
-        category: "electronics",
-        condition: "Өте жақсы",
-        status: "Белсенді",
-        dorm: "№1 Жатақхана (METU)",
-        img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
-        desc: "Акустикасы тамаша, заряды 2 күнге жетеді. Қорабы мен чегы бар."
-    },
-    {
-        id: 8,
-        title: "Ноутбукке арналған ыңғайлы рюкзак",
-        price: 7000,
-        category: "dorm",
-        condition: "Жаңа",
-        status: "Белсенді",
-        dorm: "Бас корпус (METU)",
-        img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-        desc: "Су өткізбейтін материалдан жасалған, 15.6 дюймдік ноутбукке арналған бөлімі бар."
-    }
-];
+<!DOCTYPE html>
+<html lang="kk" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniMarket — METU Кампус Маркетплейсі</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Mini<span>Market</span> <small>METU Campus</small></a>
+            <div class="header-actions">
+                <button id="themeToggle" class="icon-btn" title="Теманы өзгерту">🌙</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Мәзір">☰</button>
+            </div>
+            <nav class="nav" id="navMenu">
+                <a href="index.html" class="active">Басты бет</a>
+                <a href="create-ad.html" class="btn-primary-sm">+ Хабарландыру</a>
+                <a href="profile.html">Профиль (<span id="favCount">0</span>)</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-advanced">
+            <div class="hero-content">
+                <h1>METU кампусындағы қауіпсіз студенттік сауда</h1>
+                <p>Худи, шапка, оқулықтар мен гаджеттерді тек расталған студенттерден алыңыз.</p>
+                <div class="hero-stats">
+                    <div><strong>500+</strong> Студент</div>
+                    <div><strong>100%</strong> @metu.edu.kz расталған</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Controls & Filters -->
+        <section class="controls-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Тауар атауы, құрамы немесе сипаттамасы бойынша іздеу...">
+            </div>
+            <div class="filters-group">
+                <select id="categoryFilter">
+                    <option value="all" id="catAllCount">Барлық категориялар (0)</option>
+                    <option value="clothes" id="catClothesCount">👕 Киімдер & Худилер (0)</option>
+                    <option value="books" id="catBooksCount">📚 Оқулықтар & Конспектілер (0)</option>
+                    <option value="stationery" id="catStatCount">✏️ Канцелярия (0)</option>
+                    <option value="electronics" id="catElectCount">💻 Электроника (0)</option>
+                    <option value="dorm" id="catDormCount">🛏️ Жатақхана заттары (0)</option>
+                </select>
+                <select id="conditionFilter">
+                    <option value="all">Кез келген күйде</option>
+                    <option value="Жаңа">✨ Жаңа</option>
+                    <option value="Өте жақсы">👍 Өте жақсы</option>
+                    <option value="Қолданылған">📖 Қолданылған</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="default">Сұрыптау</option>
+                    <option value="cheap">Бағасы: арзанырақ</option>
+                    <option value="expensive">Бағасы: қымбатырақ</option>
+                    <option value="newest">Ең жаңалары</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="product-grid" id="productGrid"></section>
+    </main>
+
+    <!-- Modal Window -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-flex">
+            <p>&copy; 2026 MiniMarket METU. Барлық құқықтар қорғалған.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
