@@ -1,17 +1,54 @@
 const defaultProducts = [
     {
         id: 1,
-        title: "METU Брендті Оверсайз Худи (L)",
-        price: 6500,
+        title: "METU Классикалық Оверсайз Худи",
+        price: 7500,
         category: "clothes",
         condition: "Жаңа",
         status: "Белсенді",
         dorm: "№1 Жатақхана (METU)",
         img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80",
-        desc: "METU логотипі бар сапалы оверсайз худи. Киілмеген."
+        desc: "Құрамы: 80% мақта, 20% полиэстер. Жылы, денеге жайлы, METU логотипі сапалы басылған.",
+        createdAt: Date.now() - 100000
     },
     {
         id: 2,
+        title: "METU Университеттік Толстовка (Свитшот)",
+        price: 6500,
+        category: "clothes",
+        condition: "Өте жақсы",
+        status: "Белсенді",
+        dorm: "№2 Жатақхана (METU)",
+        img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&q=80",
+        desc: "Құрамы: 70% мақта, 30% полиэстер. Күз бен көктем мезгіліне арналған жұмсақ толстовка.",
+        createdAt: Date.now() - 200000
+    },
+    {
+        id: 3,
+        title: "METU Брендті Қысқы Шапка (Beanie)",
+        price: 2500,
+        category: "clothes",
+        condition: "Жаңа",
+        status: "Белсенді",
+        dorm: "Бас корпус (METU)",
+        img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&q=80",
+        desc: "Құрамы: 100% акрил (жылы әрі тістемейді). Суық күндерге арналған тоқылған шапка.",
+        createdAt: Date.now() - 300000
+    },
+    {
+        id: 4,
+        title: "METU Жазғы Кепка (Baseball Cap)",
+        price: 2000,
+        category: "clothes",
+        condition: "Жаңа",
+        status: "Белсенді",
+        dorm: "№1 Жатақхана (METU)",
+        img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80",
+        desc: "Құрамы: 100% мақта (cotton). Күннен қорғайтын сапалы баспалы кепка, арты реттеледі.",
+        createdAt: Date.now() - 400000
+    },
+    {
+        id: 5,
         title: "Parker гелевый ручкалар жинағы",
         price: 1500,
         category: "stationery",
@@ -19,29 +56,44 @@ const defaultProducts = [
         status: "Белсенді",
         dorm: "Бас корпус (METU)",
         img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80",
-        desc: "Конспект пен емтихан жазуға ыңғайлы металлик ручкалар."
+        desc: "Конспект пен емтихан жазуға өте ыңғайлы премиум металлик ручкалар.",
+        createdAt: Date.now() - 500000
     },
     {
-        id: 3,
-        title: "Discrete Mathematics & Algorithms (METU)",
+        id: 6,
+        title: "Discrete Mathematics & Algorithms (Оқулық)",
         price: 3500,
         category: "books",
         condition: "Өте жақсы",
         status: "Белсенді",
         dorm: "№2 Жатақхана (METU)",
         img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
-        desc: "Дискретті математика курсына арналған ағылшынша оқулық."
+        desc: "Дискретті математика курсына арналған ағылшын тіліндегі түпнұсқа оқулық.",
+        createdAt: Date.now() - 600000
     },
     {
-        id: 4,
+        id: 7,
         title: "Xiaomi Redmi Dots Беспроводные Наушники",
         price: 4800,
         category: "electronics",
         condition: "Өте жақсы",
-        status: "Белсенді",
+        status: "Броньда",
         dorm: "№1 Жатақхана (METU)",
         img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
-        desc: "Дыбысы тамаша, заряды 2 күнге жетеді."
+        desc: "Акустикасы тамаша, заряды 2 күнге жетеді. Қорабы мен чегы бар.",
+        createdAt: Date.now() - 700000
+    },
+    {
+        id: 8,
+        title: "Ноутбукке арналған ыңғайлы рюкзак",
+        price: 7000,
+        category: "dorm",
+        condition: "Жаңа",
+        status: "Сатылды",
+        dorm: "Бас корпус (METU)",
+        img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
+        desc: "Су өткізбейтін материалдан жасалған, 15.6 дюймдік ноутбукке арналған бөлімі бар.",
+        createdAt: Date.now() - 800000
     }
 ];
 
@@ -60,6 +112,19 @@ function saveProducts(products) {
 
 function getFavorites() {
     return JSON.parse(localStorage.getItem('minimarket_favs')) || [];
+}
+
+// Toast Notification
+function showToast(message) {
+    const container = document.getElementById('toastContainer');
+    if(!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -103,18 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCategoryCounts() {
         const products = getProducts();
         const catAll = document.getElementById('catAllCount');
+        const catClothes = document.getElementById('catClothesCount');
         const catBooks = document.getElementById('catBooksCount');
         const catStat = document.getElementById('catStatCount');
-        const catClothes = document.getElementById('catClothesCount');
         const catElect = document.getElementById('catElectCount');
         const catDorm = document.getElementById('catDormCount');
 
         if(catAll) {
             catAll.textContent = `Барлық категориялар (${products.length})`;
+            catClothes.textContent = `👕 Киімдер & Худилер (${products.filter(p => p.category === 'clothes').length})`;
             catBooks.textContent = `📚 Оқулықтар & Конспектілер (${products.filter(p => p.category === 'books').length})`;
-            catStat.textContent = `✏️ Канцелярия & Ручкалар (${products.filter(p => p.category === 'stationery').length})`;
-            catClothes.textContent = `👕 Киім & Худилер (${products.filter(p => p.category === 'clothes').length})`;
-            catElect.textContent = `💻 Электроника & Гаджеттер (${products.filter(p => p.category === 'electronics').length})`;
+            catStat.textContent = `✏️ Канцелярия (${products.filter(p => p.category === 'stationery').length})`;
+            catElect.textContent = `💻 Электроника (${products.filter(p => p.category === 'electronics').length})`;
             if(catDorm) catDorm.textContent = `🛏️ Жатақхана заттары (${products.filter(p => p.category === 'dorm').length})`;
         }
     }
@@ -172,8 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 let favs = getFavorites();
                 if(favs.includes(id)) {
                     favs = favs.filter(favId => favId !== id);
+                    showToast('Таңдаулылардан өшірілді');
                 } else {
                     favs.push(id);
+                    showToast('❤️ Таңдаулыларға қосылды!');
                 }
                 localStorage.setItem('minimarket_favs', JSON.stringify(favs));
                 renderGrid(getProducts());
@@ -213,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 filtered.sort((a, b) => a.price - b.price);
             } else if(sort === 'expensive') {
                 filtered.sort((a, b) => b.price - a.price);
+            } else if(sort === 'newest') {
+                filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
             }
             renderGrid(filtered);
         }
@@ -223,13 +292,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(sortFilter) sortFilter.addEventListener('change', filterAndSort);
     }
 
-    // Modal & Chat
+    // Modal & Chat & WhatsApp
     const modal = document.getElementById('productModal');
     const closeModal = document.getElementById('closeModal');
     const modalBody = document.getElementById('modalBody');
 
     function openModal(p) {
         if(!modal) return;
+        const waText = encodeURIComponent(`Сәлеметсіз бе! MiniMarket арқылы «${p.title}» (${p.price} ₸) тауарын көрген едім. Әлі сатылымда ма?`);
         modalBody.innerHTML = `
             <img src="${p.img}" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:12px;">
             <h2>${p.title}</h2>
@@ -238,11 +308,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Мекенжайы:</strong> ${p.dorm}</p>
             <p style="margin: 10px 0; color:var(--text-muted); font-size:14px;">${p.desc}</p>
             
+            <a href="https://wa.me/77071234567?text=${waText}" target="_blank" class="whatsapp-btn">💬 WhatsApp арқылы жазу</a>
+
             <hr style="margin:15px 0; border:0; border-top:1px solid var(--border);">
-            <h3>💬 Онлайн Чат (Сатушымен байланысу)</h3>
+            <h3>💬 Сайттағы чат</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chatMsgs">
-                    <div class="chat-msg received">Сәлеметсіз бе! Тауар әлі сатылымда ма?</div>
+                    <div class="chat-msg received">Сәлеметсіз бе! Тауар жайлы сұрағым келіп еді.</div>
                 </div>
                 <div class="chat-input-row">
                     <input type="text" id="chatInput" placeholder="Хабарлама жазыңыз...">
@@ -269,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         const replyDiv = document.createElement('div');
                         replyDiv.className = 'chat-msg received';
-                        replyDiv.textContent = 'Иә, сатылымда! Жатақханадан келіп алсаңыз болады.';
+                        replyDiv.textContent = 'Иә, бәрі дұрыс! Жатақхана маңында кездесе аламыз.';
                         chatMsgs.appendChild(replyDiv);
                         chatMsgs.scrollTop = chatMsgs.scrollHeight;
                     }, 1000);
@@ -281,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeModal) closeModal.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
 
-    // 4. Форма
+    // 4. Форма & FileReader (Файлдан сурет жүктеу)
     const adForm = document.getElementById('adForm');
     if(adForm) {
         adForm.addEventListener('submit', (e) => {
@@ -294,46 +366,62 @@ document.addEventListener('DOMContentLoaded', () => {
             const condition = document.getElementById('condition');
             const desc = document.getElementById('description');
             const dorm = document.getElementById('dormLocation');
-            const imgUrl = document.getElementById('imgUrl');
+            const imageFile = document.getElementById('imageFile');
 
             document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
 
             if(!title.value.trim()) { document.getElementById('titleError').textContent = 'Атауын жазыңыз!'; isValid = false; }
-            if(!price.value || price.value <= 0) { document.getElementById('priceError').textContent = 'Бағаны көрсетіңіз!'; isValid = false; }
+            if(!price.value || price.value <= 0) { document.getElementById('priceError').textContent = 'Бағаны дұрыс көрсетіңіз!'; isValid = false; }
             if(!category.value) { document.getElementById('categoryError').textContent = 'Категория таңдаңыз!'; isValid = false; }
-            if(!desc.value.trim()) { document.getElementById('descError').textContent = 'Сипаттама жазыңыз!'; isValid = false; }
+            if(!desc.value.trim()) { document.getElementById('descError').textContent = 'Сипаттама мен құрамын жазыңыз!'; isValid = false; }
 
             if(isValid) {
                 let defaultImg = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80";
                 if(category.value === 'clothes') defaultImg = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80";
                 if(category.value === 'stationery') defaultImg = "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80";
 
-                const newAd = {
-                    id: Date.now(),
-                    title: title.value,
-                    price: Number(price.value),
-                    category: category.value,
-                    condition: condition ? condition.value : 'Өте жақсы',
-                    status: 'Белсенді',
-                    dorm: dorm.value,
-                    img: imgUrl.value.trim() || defaultImg,
-                    desc: desc.value
+                const processAd = (imgResult) => {
+                    const newAd = {
+                        id: Date.now(),
+                        title: title.value,
+                        price: Number(price.value),
+                        category: category.value,
+                        condition: condition ? condition.value : 'Өте жақсы',
+                        status: 'Белсенді',
+                        dorm: dorm.value,
+                        img: imgResult || defaultImg,
+                        desc: desc.value,
+                        createdAt: Date.now()
+                    };
+
+                    const products = getProducts();
+                    products.unshift(newAd);
+                    saveProducts(products);
+
+                    showToast('🚀 Хабарландыру сәтті жарияланды!');
+                    setTimeout(() => {
+                        window.location.href = 'profile.html';
+                    }, 1000);
                 };
 
-                const products = getProducts();
-                products.unshift(newAd);
-                saveProducts(products);
-
-                alert('Хабарландыру сәтті қосылды!');
-                window.location.href = 'profile.html';
+                if(imageFile && imageFile.files && imageFile.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(uploadEvent) {
+                        processAd(uploadEvent.target.result);
+                    };
+                    reader.readAsDataURL(imageFile.files[0]);
+                } else {
+                    processAd(defaultImg);
+                }
             }
         });
     }
 
-    // 5. Профиль, Өшіру және Мәртебені ауыстыру («Бронь», «Сатылды»)
+    // 5. Профиль, Аналитика & Сатылым сомасын есептеу
     const myAdsGrid = document.getElementById('myAdsGrid');
     const favoritesGrid = document.getElementById('favoritesGrid');
     const myAdsCount = document.getElementById('myAdsCount');
+    const totalEarned = document.getElementById('totalEarned');
     const favsCountDisplay = document.getElementById('favsCountDisplay');
 
     function renderProfileAds() {
@@ -341,6 +429,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const products = getProducts();
         
         if(myAdsCount) myAdsCount.textContent = products.length;
+
+        // Сатылған тауарлардың жалпы сомасын есептеу
+        const earnedSum = products
+            .filter(p => p.status === 'Сатылды')
+            .reduce((sum, p) => sum + p.price, 0);
+        if(totalEarned) totalEarned.textContent = `${earnedSum.toLocaleString()} ₸`;
 
         if(products.length === 0) {
             myAdsGrid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1;">Белсенді хабарландыру жоқ.</p>';
@@ -355,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="price">${p.price} ₸</p>
                         <p style="font-size:12px; color:var(--text-muted);">Мәртебесі: <strong>${p.status || 'Белсенді'}</strong></p>
                         <div class="action-buttons">
-                            <button class="btn-status" data-id="${p.id}">🔄 Мәртебе өзгерту</button>
+                            <button class="btn-status" data-id="${p.id}">🔄 Мәртебе</button>
                             <button class="btn-delete" data-id="${p.id}">🗑️ Өшіру</button>
                         </div>
                     </div>
@@ -363,7 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // Мәртебе өзгерту логикасы
         document.querySelectorAll('.btn-status').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = Number(btn.getAttribute('data-id'));
@@ -376,11 +469,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     saveProducts(products);
                     renderProfileAds();
+                    showToast(`Мәртебе өзгерді: ${prod.status}`);
                 }
             });
         });
 
-        // Өшіру
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = Number(btn.getAttribute('data-id'));
@@ -389,6 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     products = products.filter(p => p.id !== id);
                     saveProducts(products);
                     renderProfileAds();
+                    showToast('Хабарландыру өшірілді');
                 }
             });
         });
