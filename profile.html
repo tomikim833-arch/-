@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Жеке кабинет — MiniMarket</title>
+    <title>Жеке кабинет — MiniMarket METU</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -19,20 +19,21 @@
     </header>
 
     <main class="container">
-        <!-- Profile Header Card -->
+        <!-- Auth Card -->
         <section class="profile-dashboard">
             <div class="profile-user-info">
                 <div class="avatar-large">👨‍🎓</div>
                 <div>
                     <h2>Айдос Нұрланов</h2>
-                    <p class="text-muted">Информатика мамандығы, 3-курс • ҚазҰУ</p>
-                    <span class="verified-badge">✓ Университет поштасы расталған (@stud.kz)</span>
+                    <p class="text-muted">Информатика мамандығы, 3-курс • METU</p>
+                    <span class="verified-badge">✓ @metu.edu.kz арқылы расталған</span>
+                    <div class="rating-box">Рейтинг: ⭐⭐⭐⭐⭐ (5.0 / 12 пікір)</div>
                 </div>
             </div>
             <div class="profile-stats">
                 <div class="stat-box">
                     <span id="myAdsCount">0</span>
-                    <p>Хабарландырулар</p>
+                    <p>Белсенді тауарлар</p>
                 </div>
                 <div class="stat-box">
                     <span id="favsCountDisplay">0</span>
@@ -41,11 +42,11 @@
             </div>
         </section>
 
-        <!-- Tabs for My Ads & Favorites -->
         <section class="profile-content-section">
             <div class="tabs-header">
                 <button class="tab-btn active" data-tab="myAds">Менің хабарландыруларым</button>
-                <button class="tab-btn" data-tab="favorites">Сақталғандар (Избранное)</button>
+                <button class="tab-btn" data-tab="favorites">Сақталғандар</button>
+                <button class="tab-btn" data-tab="reviews">Пікірлер (Reviews)</button>
             </div>
             
             <div class="tab-pane active" id="myAdsPane">
@@ -54,12 +55,24 @@
             <div class="tab-pane" id="favoritesPane">
                 <div class="product-grid" id="favoritesGrid"></div>
             </div>
+            <div class="tab-pane" id="reviewsPane">
+                <div class="reviews-list">
+                    <div class="review-card">
+                        <strong>Арман Б. (METU Студенті)</strong> — ⭐⭐⭐⭐⭐
+                        <p>«Оқулықты өте жақсы күйде алдым, рахмет!»</p>
+                    </div>
+                    <div class="review-card">
+                        <strong>Диана К.</strong> — ⭐⭐⭐⭐⭐
+                        <p>«Худи дәл сипаттамадағыдай, тез келістік.»</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 MiniMarket. Қауіпсіз кампус ортасы.</p>
+            <p>&copy; 2026 MiniMarket METU. Қауіпсіз кампус ортасы.</p>
         </div>
     </footer>
 
