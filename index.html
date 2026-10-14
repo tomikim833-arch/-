@@ -1,48 +1,81 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kk" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniMarket - Кампус маркетплейсі</title>
+    <title>MiniMarket — Кампус Маркетплейсі</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
         <div class="container header-container">
-            <a href="index.html" class="logo">Mini<span>Market</span></a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
+            <a href="index.html" class="logo">Mini<span>Market</span> <small>Campus C2C</small></a>
+            <div class="header-actions">
+                <button id="themeToggle" class="icon-btn" title="Теманы өзгерту">🌙</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Мәзір">☰</button>
+            </div>
             <nav class="nav" id="navMenu">
                 <a href="index.html" class="active">Басты бет</a>
-                <a href="create-ad.html">Хабарландыру қосу</a>
-                <a href="profile.html">Профиль</a>
+                <a href="create-ad.html" class="btn-primary-sm">+ Хабарландыру</a>
+                <a href="profile.html">Профиль (<span id="favCount">0</span>)</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <section class="hero">
-            <h1>Студенттерге арналған сенімді маркетплейс</h1>
-            <p>Кампус ішіндегі оңай, қауіпсіз әрі арзан сауда платформасы.</p>
+        <!-- Banner / Hero -->
+        <section class="hero-advanced">
+            <div class="hero-content">
+                <h1>Кампус ішіндегі қауіпсіз сауда</h1>
+                <p>Оқулықтар, техника, киімдер және жатақханаға қажетті заттарды өз студенттеріңізден табыңыз.</p>
+                <div class="hero-stats">
+                    <div><strong>500+</strong> Белсенді студент</div>
+                    <div><strong>100%</strong> Университет поштасымен тексерілген</div>
+                </div>
+            </div>
         </section>
 
-        <section class="filter-section">
-            <input type="text" id="searchInput" placeholder="Тауар немесе кітап іздеу...">
-            <select id="categoryFilter">
-                <option value="all">Барлық категориялар</option>
-                <option value="books">Оқулықтар</option>
-                <option value="electronics">Электроника</option>
-                <option value="clothes">Киімдер</option>
-            </select>
+        <!-- Advanced Filters & Search -->
+        <section class="controls-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Тауар атауы, кітап немесе автор бойынша іздеу...">
+            </div>
+            <div class="filters-group">
+                <select id="categoryFilter">
+                    <option value="all">Барлық категориялар</option>
+                    <option value="books">📚 Оқулықтар & Конспектілер</option>
+                    <option value="electronics">💻 Электроника & Гаджеттер</option>
+                    <option value="clothes">👕 Киім & Аксессуарлар</option>
+                    <option value="dorm">🛏️ Жатақхана заттары</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="default">Сұрыптау</option>
+                    <option value="cheap">Бағасы: арзанырақ</option>
+                    <option value="expensive">Бағасы: қымбатырақ</option>
+                </select>
+            </div>
         </section>
 
+        <!-- Products Grid -->
         <section class="product-grid" id="productGrid">
-            <!-- Деректер JavaScript арқылы динамикалы жүктеледі -->
+            <!-- Динамикалық түрде JavaScript арқылы толтырылады -->
         </section>
     </main>
 
+    <!-- Модальное окно деталей товара -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 MiniMarket. Кампус ішіндегі қауіпсіз сауда.</p>
+        <div class="container footer-flex">
+            <p>&copy; 2026 MiniMarket. Студенттер үшін студенттер жасаған.</p>
+            <p>Алматы • ҚазҰУ • МУИТ • СДУ</p>
         </div>
     </footer>
 
