@@ -7,22 +7,72 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Чаттар мен Бонустарға арналған қосымша стильдер */
-        .chats-list { display: flex; flex-direction: column; gap: 12px; }
-        .chat-preview-card { background-color: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow); }
-        .chat-preview-card:hover { border-color: var(--primary); }
-        .chat-info h4 { font-size: 15px; margin-bottom: 4px; color: var(--text-color); }
-        .chat-info p { font-size: 13px; color: var(--text-muted); }
-        .unread-badge { background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-        
+        :root {
+            --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #0f172a; --text-muted: #64748b;
+            --primary: #4f46e5; --primary-hover: #4338ca; --border: #e2e8f0; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f8fafc; --text-muted: #94a3b8;
+            --primary: #6366f1; --border: #334155; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+        .header { background-color: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav { display: flex; gap: 15px; align-items: center; }
+        .nav a { text-decoration: none; color: var(--text-color); font-weight: 500; }
+        .btn-primary-sm { background-color: var(--primary); color: white !important; padding: 8px 14px; border-radius: 8px; text-decoration: none; }
+
+        /* Profile Top Header */
+        .profile-dashboard { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: var(--shadow); }
+        .profile-user-info { display: flex; align-items: center; gap: 20px; }
+        .avatar-large { font-size: 50px; background: #e0e7ff; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .profile-user-info h2 { font-size: 20px; margin-bottom: 4px; }
+        .text-muted { color: var(--text-muted); font-size: 14px; }
+        .verified-badge { color: #10b981; font-size: 13px; font-weight: 600; }
+        .rating-box { font-size: 13px; color: #f59e0b; margin-top: 4px; }
+        .profile-stats { display: flex; gap: 15px; }
+        .stat-box { background: var(--bg-color); border: 1px solid var(--border); padding: 12px 20px; border-radius: 12px; text-align: center; }
+        .stat-box span { font-size: 18px; font-weight: 700; color: var(--primary); display: block; }
+        .stat-box p { font-size: 12px; color: var(--text-muted); }
+
+        /* Coins Banner */
         .coins-banner { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 20px; border-radius: 14px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
-        .coins-banner h3 { font-size: 20px; margin-bottom: 5px; }
+        .coins-banner h3 { font-size: 18px; margin-bottom: 4px; }
         .coins-banner p { font-size: 13px; opacity: 0.9; }
-        .coins-amount { font-size: 24px; font-weight: 700; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 10px; }
+        .coins-amount { font-size: 22px; font-weight: 700; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 10px; }
+
+        /* Tabs Navigation */
+        .tabs-header { display: flex; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { background: transparent; border: none; padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .tab-btn:hover { background-color: var(--border); color: var(--text-color); }
+        .tab-btn.active { background-color: var(--primary); color: white !important; }
+
+        /* Tab Panes */
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* Content Styling */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .chats-list { display: flex; flex-direction: column; gap: 12px; }
+        .chat-card { background: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow); }
+        .chat-card:hover { border-color: var(--primary); }
+        .chat-card h4 { font-size: 15px; color: var(--text-color); margin-bottom: 4px; }
+        .chat-card p { font-size: 13px; color: var(--text-muted); }
+        .unread-badge { background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+
+        .reviews-list { display: flex; flex-direction: column; gap: 12px; }
+        .review-card { background: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 12px; box-shadow: var(--shadow); }
+        .review-card strong { font-size: 14px; color: var(--text-color); }
+        .review-card p { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+        .footer { margin-top: auto; background-color: var(--card-bg); border-top: 1px solid var(--border); padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
     </style>
 </head>
 <body>
-    <div id="toastContainer" class="toast-container"></div>
 
     <header class="header">
         <div class="container header-container">
@@ -35,7 +85,7 @@
     </header>
 
     <main class="container">
-        <!-- Auth & Analytics Dashboard -->
+        <!-- Profile Dashboard Header -->
         <section class="profile-dashboard">
             <div class="profile-user-info">
                 <div class="avatar-large">👨‍🎓</div>
@@ -48,21 +98,21 @@
             </div>
             <div class="profile-stats">
                 <div class="stat-box">
-                    <span id="myAdsCount">0</span>
-                    <p>Белсенді</p>
+                    <span id="myAdsCount">1</span>
+                    <p>Белсенді тауарлар</p>
                 </div>
                 <div class="stat-box">
-                    <span id="totalEarned">0 ₸</span>
+                    <span>280,000 ₸</span>
                     <p>Тапқан қаржы</p>
                 </div>
                 <div class="stat-box">
-                    <span id="favsCountDisplay">0</span>
+                    <span id="favsCountDisplay">2</span>
                     <p>Таңдаулылар</p>
                 </div>
             </div>
         </section>
 
-        <!-- 4-тармақ: METU Coins / Бонустар жүйесі -->
+        <!-- Coins Banner -->
         <div class="coins-banner">
             <div>
                 <h3>🪙 METU Campus Бонустары</h3>
@@ -71,49 +121,66 @@
             <div class="coins-amount">1,250 Coins</div>
         </div>
 
+        <!-- Navigation Tabs -->
         <section class="profile-content-section">
             <div class="tabs-header">
                 <button class="tab-btn active" data-tab="myAds">Менің хабарландыруларым</button>
                 <button class="tab-btn" data-tab="favorites">Сақталғандар</button>
-                <button class="tab-btn" data-tab="chats">💬 Чаттар (<span id="chatCount">2</span>)</button>
+                <button class="tab-btn" data-tab="chats">💬 Чаттар (2)</button>
                 <button class="tab-btn" data-tab="reviews">Пікірлер</button>
             </div>
             
+            <!-- Tab 1: Менің хабарландыруларым -->
             <div class="tab-pane active" id="myAdsPane">
-                <div class="product-grid" id="myAdsGrid"></div>
+                <div class="product-grid" id="myAdsGrid">
+                    <div style="background:var(--card-bg); border:1px solid var(--border); padding:15px; border-radius:12px;">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80" style="width:100%; height:140px; object-fit:cover; border-radius:8px;">
+                        <h4 style="margin:10px 0 5px 0;">Apple MacBook Air M1</h4>
+                        <p style="color:var(--primary); font-weight:700;">280 000 ₸</p>
+                    </div>
+                </div>
             </div>
+
+            <!-- Tab 2: Сақталғандар (Таңдаулылар) -->
             <div class="tab-pane" id="favoritesPane">
-                <div class="product-grid" id="favoritesGrid"></div>
+                <div class="product-grid" id="favoritesGrid">
+                    <div style="background:var(--card-bg); border:1px solid var(--border); padding:15px; border-radius:12px;">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80" style="width:100%; height:140px; object-fit:cover; border-radius:8px;">
+                        <h4 style="margin:10px 0 5px 0;">METU Оверсайз Худи</h4>
+                        <p style="color:var(--primary); font-weight:700;">7 500 ₸</p>
+                    </div>
+                </div>
             </div>
             
-            <!-- 3-тармақ: Чаттар мен хабарламалар бөлімі -->
+            <!-- Tab 3: Чаттар -->
             <div class="tab-pane" id="chatsPane">
                 <div class="chats-list">
-                    <div class="chat-preview-card" onclick="alert('Чат терезесі ашылуда: Арман Б. (Худи жайлы)')">
-                        <div class="chat-info">
-                            <h4>Арман Б. (METU №1 Жатақхана)</h4>
-                            <p>«Сәлеметсіз бе! Худи әлі сатылымда ма? Бүгін кешке көрісе аламыз ба?»</p>
+                    <div class="chat-card" onclick="alert('Арман Б. Сәлеметсіз бе! MacBook әлі сатылымда ма?')">
+                        <div>
+                            <h4>Арман Б. (№1 Жатақхана)</h4>
+                            <p>«Сәлеметсіз бе! MacBook әлі сатылымда ма? Кешке көре аламын ба?»</p>
                         </div>
                         <span class="unread-badge">Жаңа 1</span>
                     </div>
-                    <div class="chat-preview-card" onclick="alert('Чат терезесі ашылуда: Диана К. (Ноутбук жайлы)')">
-                        <div class="chat-info">
+                    <div class="chat-card" onclick="alert('Диана К. Бағасын аздап түсіре аласыз ба?')">
+                        <div>
                             <h4>Диана К. (Бас корпус)</h4>
-                            <p>«Бағасын аздап түсіре аласыз ба?»</p>
+                            <p>«Худидің бағасын аздап түсіре аласыз ба?»</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Tab 4: Пікірлер -->
             <div class="tab-pane" id="reviewsPane">
                 <div class="reviews-list">
                     <div class="review-card">
-                        <strong>Арман Б. (METU Студенті)</strong> — ⭐⭐⭐⭐⭐
-                        <p>«Худи мен шапканы өте жақсы күйде алдым, рахмет!»</p>
+                        <strong>Арман Б. (METU Студенті) — ⭐⭐⭐⭐⭐</strong>
+                        <p>«Ноутбукты өте жақсы күйде алдым, қорабы мен зарядтағышы түгел. Рахмет!»</p>
                     </div>
                     <div class="review-card">
-                        <strong>Диана К.</strong> — ⭐⭐⭐⭐⭐
-                        <p>«Тез келісіп, жатақханаға әкеліп берді. Сапасы керемет.»</p>
+                        <strong>Диана К. — ⭐⭐⭐⭐⭐</strong>
+                        <p>«Тез келісіп, жатақханаға әкеліп берді. Сапасы тамаша.»</p>
                     </div>
                 </div>
             </div>
@@ -122,10 +189,35 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 MiniMarket METU. Қауіпсіз кампус ортасы.</p>
+            <p>&copy; 2026 MiniMarket METU. Барлық құқықтар қорғалған.</p>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- Табтарды ауыстыруға арналған скрипт -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Барлық батырмалардан active класын алып тастау
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // Барлық мазмұн панельдерін жасыру
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                    // Басылған батырмаға active класын қосу
+                    button.classList.add('active');
+
+                    // Сәйкес келетін панельді ашу
+                    const tabName = button.getAttribute('data-tab');
+                    const targetPane = document.getElementById(tabName + 'Pane');
+                    if(targetPane) {
+                        targetPane.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
