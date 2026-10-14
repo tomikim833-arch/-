@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniMarket - Кампус маркетплейсі</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Mini<span>Market</span></a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
+            <nav class="nav" id="navMenu">
+                <a href="index.html" class="active">Басты бет</a>
+                <a href="create-ad.html">Хабарландыру қосу</a>
+                <a href="profile.html">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Студенттерге арналған сенімді маркетплейс</h1>
+            <p>Кампус ішіндегі оңай, қауіпсіз әрі арзан сауда платформасы.</p>
+        </section>
+
+        <section class="filter-section">
+            <input type="text" id="searchInput" placeholder="Тауар немесе кітап іздеу...">
+            <select id="categoryFilter">
+                <option value="all">Барлық категориялар</option>
+                <option value="books">Оқулықтар</option>
+                <option value="electronics">Электроника</option>
+                <option value="clothes">Киімдер</option>
+            </select>
+        </section>
+
+        <section class="product-grid" id="productGrid">
+            <!-- Деректер JavaScript арқылы динамикалы жүктеледі -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 MiniMarket. Кампус ішіндегі қауіпсіз сауда.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
