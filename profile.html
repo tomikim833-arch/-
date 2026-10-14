@@ -6,6 +6,20 @@
     <title>Жеке кабинет — MiniMarket METU</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Чаттар мен Бонустарға арналған қосымша стильдер */
+        .chats-list { display: flex; flex-direction: column; gap: 12px; }
+        .chat-preview-card { background-color: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow); }
+        .chat-preview-card:hover { border-color: var(--primary); }
+        .chat-info h4 { font-size: 15px; margin-bottom: 4px; color: var(--text-color); }
+        .chat-info p { font-size: 13px; color: var(--text-muted); }
+        .unread-badge { background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        
+        .coins-banner { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 20px; border-radius: 14px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
+        .coins-banner h3 { font-size: 20px; margin-bottom: 5px; }
+        .coins-banner p { font-size: 13px; opacity: 0.9; }
+        .coins-amount { font-size: 24px; font-weight: 700; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 10px; }
+    </style>
 </head>
 <body>
     <div id="toastContainer" class="toast-container"></div>
@@ -15,7 +29,7 @@
             <a href="index.html" class="logo">Mini<span>Market</span></a>
             <nav class="nav">
                 <a href="index.html">Басты бет</a>
-                <a href="create-ad.html">+ Хабарландыру</a>
+                <a href="create-ad.html" class="btn-primary-sm">+ Хабарландыру</a>
             </nav>
         </div>
     </header>
@@ -35,11 +49,11 @@
             <div class="profile-stats">
                 <div class="stat-box">
                     <span id="myAdsCount">0</span>
-                    <p>Белсенді тауарлар</p>
+                    <p>Белсенді</p>
                 </div>
                 <div class="stat-box">
                     <span id="totalEarned">0 ₸</span>
-                    <p>Сатылымнан түскен</p>
+                    <p>Тапқан қаржы</p>
                 </div>
                 <div class="stat-box">
                     <span id="favsCountDisplay">0</span>
@@ -48,10 +62,20 @@
             </div>
         </section>
 
+        <!-- 4-тармақ: METU Coins / Бонустар жүйесі -->
+        <div class="coins-banner">
+            <div>
+                <h3>🪙 METU Campus Бонустары</h3>
+                <p>Маркетплейс арқылы жасалған әрбір сәтті сауда үшін cashback мен кампус ішілік ұпайлар жинаңыз.</p>
+            </div>
+            <div class="coins-amount">1,250 Coins</div>
+        </div>
+
         <section class="profile-content-section">
             <div class="tabs-header">
                 <button class="tab-btn active" data-tab="myAds">Менің хабарландыруларым</button>
                 <button class="tab-btn" data-tab="favorites">Сақталғандар</button>
+                <button class="tab-btn" data-tab="chats">💬 Чаттар (<span id="chatCount">2</span>)</button>
                 <button class="tab-btn" data-tab="reviews">Пікірлер</button>
             </div>
             
@@ -61,6 +85,26 @@
             <div class="tab-pane" id="favoritesPane">
                 <div class="product-grid" id="favoritesGrid"></div>
             </div>
+            
+            <!-- 3-тармақ: Чаттар мен хабарламалар бөлімі -->
+            <div class="tab-pane" id="chatsPane">
+                <div class="chats-list">
+                    <div class="chat-preview-card" onclick="alert('Чат терезесі ашылуда: Арман Б. (Худи жайлы)')">
+                        <div class="chat-info">
+                            <h4>Арман Б. (METU №1 Жатақхана)</h4>
+                            <p>«Сәлеметсіз бе! Худи әлі сатылымда ма? Бүгін кешке көрісе аламыз ба?»</p>
+                        </div>
+                        <span class="unread-badge">Жаңа 1</span>
+                    </div>
+                    <div class="chat-preview-card" onclick="alert('Чат терезесі ашылуда: Диана К. (Ноутбук жайлы)')">
+                        <div class="chat-info">
+                            <h4>Диана К. (Бас корпус)</h4>
+                            <p>«Бағасын аздап түсіре аласыз ба?»</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-pane" id="reviewsPane">
                 <div class="reviews-list">
                     <div class="review-card">
