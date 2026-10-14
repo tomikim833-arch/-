@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="toastContainer" class="toast-container"></div>
+
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">Mini<span>Market</span></a>
@@ -26,7 +28,7 @@
             <form id="adForm" novalidate>
                 <div class="form-group">
                     <label for="title">Тауар атауы *</label>
-                    <input type="text" id="title" required placeholder="Мысалы: METU Худиі немесе PowerBank">
+                    <input type="text" id="title" required placeholder="Мысалы: METU Худиі, Шапка немесе Ручка">
                     <span class="error-msg" id="titleError"></span>
                 </div>
 
@@ -40,9 +42,9 @@
                         <label for="category">Категория *</label>
                         <select id="category" required>
                             <option value="">Таңдаңыз...</option>
+                            <option value="clothes">👕 Киімдер (Худи, Шапка, Кепка)</option>
                             <option value="books">📚 Оқулықтар</option>
                             <option value="stationery">✏️ Канцелярия</option>
-                            <option value="clothes">👕 Киімдер</option>
                             <option value="electronics">💻 Электроника</option>
                             <option value="dorm">🛏️ Жатақхана заттары</option>
                         </select>
@@ -60,7 +62,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="dormLocation">Кампус / Жатақхана корпусы</label>
+                        <label for="dormLocation">Кампус / Корпус</label>
                         <select id="dormLocation">
                             <option value="№1 Жатақхана (METU)">№1 Жатақхана</option>
                             <option value="№2 Жатақхана (METU)">№2 Жатақхана</option>
@@ -70,17 +72,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="imgUrl">Сурет сілтемесі (URL)</label>
-                    <input type="url" id="imgUrl" placeholder="https://... (бос қалдырсаңыз автоматты түрде қойылады)">
+                    <label for="imageFile">Сурет файлын таңдау (Компьютерден / Телефоннан)</label>
+                    <input type="file" id="imageFile" accept="image/*">
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Толық сипаттамасы *</label>
-                    <textarea id="description" rows="4" required placeholder="Тауардың ерекшелігі, сапасы туралы..."></textarea>
+                    <label for="description">Құрамы және сипаттамасы *</label>
+                    <textarea id="description" rows="4" required placeholder="Құрамы: 80% мақта, 20% полиэстер. Сапасы мен өлшемі туралы..."></textarea>
                     <span class="error-msg" id="descError"></span>
                 </div>
 
-                <button type="submit" class="btn-primary">Жариялау 🚀</button>
+                <button type="submit" class="btn-primary">Хабарландыруды жариялау 🚀</button>
             </form>
         </section>
     </main>
