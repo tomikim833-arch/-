@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="kk" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хабарландыру қосу — MiniMarket</title>
+    <title>Хабарландыру қосу — MiniMarket METU</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -22,12 +21,12 @@
     <main class="container">
         <section class="form-section-advanced">
             <h2>📦 Жаңа тауар орналастыру</h2>
-            <p class="form-subtitle">Кампустағы басқа студенттерге заттарыңызды оңай сатыңыз немесе жалға беріңіз.</p>
+            <p class="form-subtitle">METU кампусындағы студенттерге өз заттарыңызды ұсыныңыз.</p>
             
             <form id="adForm" novalidate>
                 <div class="form-group">
                     <label for="title">Тауар атауы *</label>
-                    <input type="text" id="title" required placeholder="Мысалы: Discrete Mathematics Textbook (4th edition)">
+                    <input type="text" id="title" required placeholder="Мысалы: METU Худиі немесе PowerBank">
                     <span class="error-msg" id="titleError"></span>
                 </div>
 
@@ -42,37 +41,53 @@
                         <select id="category" required>
                             <option value="">Таңдаңыз...</option>
                             <option value="books">📚 Оқулықтар</option>
-                            <option value="electronics">💻 Электроника</option>
+                            <option value="stationery">✏️ Канцелярия</option>
                             <option value="clothes">👕 Киімдер</option>
+                            <option value="electronics">💻 Электроника</option>
                             <option value="dorm">🛏️ Жатақхана заттары</option>
                         </select>
                         <span class="error-msg" id="categoryError"></span>
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="condition">Тауардың күйі *</label>
+                        <select id="condition">
+                            <option value="Өте жақсы">Өте жақсы</option>
+                            <option value="Жаңа">Жаңа</option>
+                            <option value="Қолданылған">Қолданылған</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dormLocation">Кампус / Жатақхана корпусы</label>
+                        <select id="dormLocation">
+                            <option value="№1 Жатақхана (METU)">№1 Жатақхана</option>
+                            <option value="№2 Жатақхана (METU)">№2 Жатақхана</option>
+                            <option value="Бас корпус (METU)">Бас корпус</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label for="dormLocation">Кампус / Жатақхана корпусы</label>
-                    <select id="dormLocation">
-                        <option value="№1 Жатақхана (Медикер)">№1 Жатақхана</option>
-                        <option value="№2 Жатақхана (Студенттер үйі)">№2 Жатақхана</option>
-                        <option value="Университет кампусы (Бас корпус)">Бас корпус</option>
-                    </select>
+                    <label for="imgUrl">Сурет сілтемесі (URL)</label>
+                    <input type="url" id="imgUrl" placeholder="https://... (бос қалдырсаңыз автоматты түрде қойылады)">
                 </div>
 
                 <div class="form-group">
                     <label for="description">Толық сипаттамасы *</label>
-                    <textarea id="description" rows="4" required placeholder="Тауардың күйі, қолданылған уақыты, себебі..."></textarea>
+                    <textarea id="description" rows="4" required placeholder="Тауардың ерекшелігі, сапасы туралы..."></textarea>
                     <span class="error-msg" id="descError"></span>
                 </div>
 
-                <button type="submit" class="btn-primary">Жариялауды бастау 🚀</button>
+                <button type="submit" class="btn-primary">Жариялау 🚀</button>
             </form>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 MiniMarket. Барлық құқықтар қорғалған.</p>
+            <p>&copy; 2026 MiniMarket METU.</p>
         </div>
     </footer>
 
