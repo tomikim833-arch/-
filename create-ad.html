@@ -1,64 +1,78 @@
+
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kk" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хабарландыру қосу - MiniMarket</title>
+    <title>Хабарландыру қосу — MiniMarket</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">Mini<span>Market</span></a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
-            <nav class="nav" id="navMenu">
+            <nav class="nav">
                 <a href="index.html">Басты бет</a>
-                <a href="create-ad.html" class="active">Хабарландыру қосу</a>
                 <a href="profile.html">Профиль</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <section class="form-section">
-            <h2>Жаңа хабарландыру жариялау</h2>
+        <section class="form-section-advanced">
+            <h2>📦 Жаңа тауар орналастыру</h2>
+            <p class="form-subtitle">Кампустағы басқа студенттерге заттарыңызды оңай сатыңыз немесе жалға беріңіз.</p>
+            
             <form id="adForm" novalidate>
                 <div class="form-group">
-                    <label for="title">Тауар атауы:</label>
-                    <input type="text" id="title" name="title" required placeholder="Мысалы: C++ оқулығы">
+                    <label for="title">Тауар атауы *</label>
+                    <input type="text" id="title" required placeholder="Мысалы: Discrete Mathematics Textbook (4th edition)">
                     <span class="error-msg" id="titleError"></span>
                 </div>
 
-                <div class="form-group">
-                    <label for="price">Бағасы (₸):</label>
-                    <input type="number" id="price" name="price" required placeholder="Мысалы: 2500">
-                    <span class="error-msg" id="priceError"></span>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Бағасы (₸) *</label>
+                        <input type="number" id="price" required placeholder="Мысалы: 3500">
+                        <span class="error-msg" id="priceError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Категория *</label>
+                        <select id="category" required>
+                            <option value="">Таңдаңыз...</option>
+                            <option value="books">📚 Оқулықтар</option>
+                            <option value="electronics">💻 Электроника</option>
+                            <option value="clothes">👕 Киімдер</option>
+                            <option value="dorm">🛏️ Жатақхана заттары</option>
+                        </select>
+                        <span class="error-msg" id="categoryError"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="category">Категория:</label>
-                    <select id="category" name="category" required>
-                        <option value="">Таңдаңыз...</option>
-                        <option value="books">Оқулықтар</option>
-                        <option value="electronics">Электроника</option>
-                        <option value="clothes">Киімдер</option>
+                    <label for="dormLocation">Кампус / Жатақхана корпусы</label>
+                    <select id="dormLocation">
+                        <option value="№1 Жатақхана (Медикер)">№1 Жатақхана</option>
+                        <option value="№2 Жатақхана (Студенттер үйі)">№2 Жатақхана</option>
+                        <option value="Университет кампусы (Бас корпус)">Бас корпус</option>
                     </select>
-                    <span class="error-msg" id="categoryError"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Сипаттамасы:</label>
-                    <textarea id="description" name="description" rows="4" placeholder="Тауардың жағдайын сипаттаңыз..."></textarea>
+                    <label for="description">Толық сипаттамасы *</label>
+                    <textarea id="description" rows="4" required placeholder="Тауардың күйі, қолданылған уақыты, себебі..."></textarea>
+                    <span class="error-msg" id="descError"></span>
                 </div>
 
-                <button type="submit" class="btn">Жариялау</button>
+                <button type="submit" class="btn-primary">Жариялауды бастау 🚀</button>
             </form>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 MiniMarket. Кампус ішіндегі қауіпсіз сауда.</p>
+            <p>&copy; 2026 MiniMarket. Барлық құқықтар қорғалған.</p>
         </div>
     </footer>
 
