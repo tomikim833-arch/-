@@ -4,19 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiniMarket — METU Кампус Маркетплейсі</title>
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #0f172a; --text-muted: #64748b;
+            --primary: #4f46e5; --primary-hover: #4338ca; --danger: #ef4444; --warning: #f59e0b;
+            --success: #10b981; --border: #e2e8f0; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --badge-bg: #e0e7ff;
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f8fafc; --text-muted: #94a3b8;
+            --primary: #6366f1; --primary-hover: #4f46e5; --border: #334155; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); --badge-bg: #312e81;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+        .header { background-color: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .logo small { font-size: 11px; color: var(--text-muted); }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .icon-btn { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+        .nav { display: flex; align-items: center; gap: 20px; }
+        .nav a { text-decoration: none; color: var(--text-color); font-weight: 500; }
+        .nav a.active { color: var(--primary); }
+        .btn-primary-sm { background-color: var(--primary); color: white !important; padding: 8px 14px; border-radius: 8px; text-decoration: none; }
+        .menu-toggle { display: none; font-size: 22px; background: none; border: none; cursor: pointer; color: var(--text-color); }
+        .hero-advanced { background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); color: white; padding: 35px; border-radius: 16px; margin-bottom: 30px; box-shadow: var(--shadow); }
+        .hero-advanced h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .hero-stats { display: flex; gap: 20px; font-size: 14px; margin-top: 15px; }
+        .controls-section { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; }
+        .search-box { flex: 1; min-width: 250px; }
+        .search-box input, .filters-group select { width: 100%; padding: 12px 16px; background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text-color); }
+        .filters-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); position: relative; }
+        .card-img-wrapper { width: 100%; height: 180px; overflow: hidden; position: relative; background: #e2e8f0; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .status-badge { position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: white; background-color: var(--success); }
+        .card-body { padding: 16px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .card-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+        .cat-badge { background-color: var(--badge-bg); color: var(--primary); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .fav-btn { background: none; border: none; font-size: 18px; cursor: pointer; }
+        .card h3 { font-size: 16px; margin-bottom: 6px; color: var(--text-color); }
+        .card p { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
+        .card-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+        .price { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .dorm-tag { font-size: 11px; color: var(--text-muted); }
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border); padding: 12px 20px; border-radius: 10px; box-shadow: var(--shadow); font-size: 14px; }
+        .whatsapp-btn { display: block; width: 100%; text-align: center; background-color: #25d366; color: white; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 10px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background-color: var(--card-bg); padding: 25px; border-radius: 16px; width: 90%; max-width: 500px; position: relative; box-shadow: var(--shadow); }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-color); }
+        .footer { margin-top: auto; background-color: var(--card-bg); border-top: 1px solid var(--border); padding: 20px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
+    </style>
 </head>
 <body>
-    <!-- Toast Notifications Container -->
     <div id="toastContainer" class="toast-container"></div>
 
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">Mini<span>Market</span> <small>METU Campus</small></a>
             <div class="header-actions">
-                <button id="themeToggle" class="icon-btn" title="Теманы өзгерту">🌙</button>
-                <button class="menu-toggle" id="menuToggle" aria-label="Мәзір">☰</button>
+                <button id="themeToggle" class="icon-btn">🌙</button>
             </div>
             <nav class="nav" id="navMenu">
                 <a href="index.html" class="active">Басты бет</a>
@@ -30,7 +81,7 @@
         <section class="hero-advanced">
             <div class="hero-content">
                 <h1>METU кампусындағы қауіпсіз студенттік сауда</h1>
-                <p>Худи, шапка, оқулықтар мен гаджеттерді тек расталған студенттерден алыңыз.</p>
+                <p>Худи, шапка, оқулықтар, ноутбук пен гаджеттерді тек расталған студенттерден алыңыз.</p>
                 <div class="hero-stats">
                     <div><strong>500+</strong> Студент</div>
                     <div><strong>100%</strong> @metu.edu.kz расталған</div>
@@ -38,31 +89,23 @@
             </div>
         </section>
 
-        <!-- Advanced Controls & Filters -->
         <section class="controls-section">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Тауар атауы, құрамы немесе сипаттамасы бойынша іздеу...">
+                <input type="text" id="searchInput" placeholder="Тауар атауы бойынша іздеу...">
             </div>
             <div class="filters-group">
                 <select id="categoryFilter">
                     <option value="all" id="catAllCount">Барлық категориялар (0)</option>
-                    <option value="clothes" id="catClothesCount">👕 Киімдер & Худилер (0)</option>
-                    <option value="books" id="catBooksCount">📚 Оқулықтар & Конспектілер (0)</option>
-                    <option value="stationery" id="catStatCount">✏️ Канцелярия (0)</option>
-                    <option value="electronics" id="catElectCount">💻 Электроника (0)</option>
-                    <option value="dorm" id="catDormCount">🛏️ Жатақхана заттары (0)</option>
+                    <option value="clothes">👕 Киімдер & Худилер</option>
+                    <option value="books">📚 Оқулықтар</option>
+                    <option value="stationery">✏️ Канцелярия</option>
+                    <option value="electronics">💻 Электроника & Ноутбук</option>
+                    <option value="dorm">🛏️ Жатақхана</option>
                 </select>
                 <select id="conditionFilter">
                     <option value="all">Кез келген күйде</option>
                     <option value="Жаңа">✨ Жаңа</option>
                     <option value="Өте жақсы">👍 Өте жақсы</option>
-                    <option value="Қолданылған">📖 Қолданылған</option>
-                </select>
-                <select id="sortFilter">
-                    <option value="default">Сұрыптау</option>
-                    <option value="cheap">Бағасы: арзанырақ</option>
-                    <option value="expensive">Бағасы: қымбатырақ</option>
-                    <option value="newest">Ең жаңалары</option>
                 </select>
             </div>
         </section>
@@ -70,7 +113,6 @@
         <section class="product-grid" id="productGrid"></section>
     </main>
 
-    <!-- Modal Window -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <button class="close-modal" id="closeModal">&times;</button>
@@ -79,11 +121,175 @@
     </div>
 
     <footer class="footer">
-        <div class="container footer-flex">
+        <div class="container">
             <p>&copy; 2026 MiniMarket METU. Барлық құқықтар қорғалған.</p>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Деректерді тазалап, автоматты түрде жүктеу
+        const defaultProducts = [
+            {
+                id: 1,
+                title: "Apple MacBook Air M1 (8GB / 256GB SSD)",
+                price: 280000,
+                category: "electronics",
+                condition: "Өте жақсы",
+                status: "Белсенді",
+                dorm: "Бас корпус (METU)",
+                img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
+                desc: "Бағдарламалау мен сабақтарға арналған өте жылдам ноутбук. Қорабы мен зарядтағышы бар."
+            },
+            {
+                id: 2,
+                title: "METU Классикалық Оверсайз Худи (L)",
+                price: 7500,
+                category: "clothes",
+                condition: "Жаңа",
+                status: "Белсенді",
+                dorm: "№1 Жатақхана (METU)",
+                img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80",
+                desc: "Құрамы: 80% мақта, 20% полиэстер. Жылы, денеге жайлы."
+            },
+            {
+                id: 3,
+                title: "METU Брендті Қысқы Шапка (Beanie)",
+                price: 2500,
+                category: "clothes",
+                condition: "Жаңа",
+                status: "Белсенді",
+                dorm: "Бас корпус (METU)",
+                img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&q=80",
+                desc: "Құрамы: 100% акрил. Суық күндерге арналған тоқылған шапка."
+            },
+            {
+                id: 4,
+                title: "Discrete Mathematics & Algorithms (Оқулық)",
+                price: 3500,
+                category: "books",
+                condition: "Өте жақсы",
+                status: "Белсенді",
+                dorm: "№2 Жатақхана (METU)",
+                img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
+                desc: "Дискретті математика курсына арналған ағылшын тіліндегі түпнұсқа оқулық."
+            }
+        ];
+
+        function getProducts() {
+            let data = localStorage.getItem('minimarket_final_v1');
+            if (!data) {
+                localStorage.setItem('minimarket_final_v1', JSON.stringify(defaultProducts));
+                return defaultProducts;
+            }
+            return JSON.parse(data);
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            if(!container) return;
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            container.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('productGrid');
+            const searchInput = document.getElementById('searchInput');
+            const catFilter = document.getElementById('categoryFilter');
+            const condFilter = document.getElementById('conditionFilter');
+            const catAllCount = document.getElementById('catAllCount');
+
+            function render(items) {
+                if(!grid) return;
+                grid.innerHTML = items.length ? items.map(p => `
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <span class="status-badge">${p.status}</span>
+                            <img src="${p.img}" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <div class="card-top">
+                                    <span class="cat-badge">${p.category} • ${p.condition}</span>
+                                </div>
+                                <h3>${p.title}</h3>
+                                <p>${p.desc}</p>
+                            </div>
+                            <div>
+                                <span class="dorm-tag">📍 ${p.dorm}</span>
+                                <div class="card-bottom">
+                                    <div class="price">${p.price.toLocaleString()} ₸</div>
+                                    <button class="btn-primary-sm view-btn" data-id="${p.id}">Толығырақ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') : '<p style="text-align:center; grid-column:1/-1; color:var(--text-muted);">Ештеңе табылмады 🔍</p>';
+
+                if(catAllCount) catAllCount.textContent = `Барлық категориялар (${getProducts().length})`;
+
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = Number(btn.getAttribute('data-id'));
+                        const p = getProducts().find(x => x.id === id);
+                        openModal(p);
+                    });
+                });
+            }
+
+            render(getProducts());
+
+            if(searchInput) {
+                searchInput.addEventListener('input', () => {
+                    let items = getProducts();
+                    let q = searchInput.value.toLowerCase();
+                    if(q) items = items.filter(i => i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q));
+                    render(items);
+                });
+            }
+
+            if(catFilter) {
+                catFilter.addEventListener('change', () => {
+                    let items = getProducts();
+                    let val = catFilter.value;
+                    if(val !== 'all') items = items.filter(i => i.category === val);
+                    render(items);
+                });
+            }
+
+            // Модалды терезе
+            const modal = document.getElementById('productModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalBody = document.getElementById('modalBody');
+
+            function openModal(p) {
+                if(!modal) return;
+                const wa = encodeURIComponent(`Сәлеметсіз бе! ${p.title} (${p.price.toLocaleString()} ₸) тауарын көрген едім.`);
+                modalBody.innerHTML = `
+                    <img src="${p.img}" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:10px;">
+                    <h2>${p.title}</h2>
+                    <p style="color:var(--primary); font-size:18px; font-weight:700; margin:5px 0;">${p.price.toLocaleString()} ₸</p>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">${p.desc}</p>
+                    <a href="https://wa.me/77071234567?text=${wa}" target="_blank" class="whatsapp-btn">💬 WhatsApp арқылы байланысу</a>
+                `;
+                modal.style.display = 'flex';
+            }
+
+            if(closeModal) closeModal.addEventListener('click', () => modal.style.display = 'none');
+            window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+
+            // Тема ауыстыру
+            const themeToggle = document.getElementById('themeToggle');
+            if(themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    let th = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', th);
+                    themeToggle.textContent = th === 'dark' ? '☀️' : '🌙';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
